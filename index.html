@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>myweb - Welcome</title>
+  <meta name="description" content="Welcome to myweb, a modern and elegant web workspace.">
+  <script>
+    /* FOUC (Flash of Unstyled Content) 防止のための初期テーマ判定 */
+    (function () {
+      try {
+        var savedTheme = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var initialTheme = savedTheme ? savedTheme : (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', initialTheme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root,
+    [data-theme="dark"] {
+      --bg: #090d16;
+      --header-bg: rgba(9, 13, 22, 0.75);
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+      --ambient-glow: rgba(99, 102, 241, 0.15);
+      --toggle-bg: rgba(255, 255, 255, 0.08);
+      --toggle-border: rgba(255, 255, 255, 0.16);
+      --toggle-hover: rgba(255, 255, 255, 0.14);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --header-bg: rgba(248, 250, 252, 0.8);
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --card-border: rgba(15, 23, 42, 0.08);
+      --card-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.12);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --accent-gradient: linear-gradient(135deg, #4f46e5 0%, #9333ea 50%, #db2777 100%);
+      --ambient-glow: rgba(99, 102, 241, 0.12);
+      --toggle-bg: rgba(15, 23, 42, 0.05);
+      --toggle-border: rgba(15, 23, 42, 0.1);
+      --toggle-hover: rgba(15, 23, 42, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 1.5rem 2rem;
+      position: relative;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Ambient background glow */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--ambient-glow) 0%, rgba(0, 0, 0, 0) 70%);
+      z-index: 0;
+      pointer-events: none;
+      transition: background 0.3s ease;
+    }
+
+    /* Header */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      background: var(--header-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1.5rem;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .brand-title {
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Clock Display */
+    .time-display {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.45rem 0.85rem;
+      border-radius: 9999px;
+      background: var(--toggle-bg);
+      border: 1px solid var(--toggle-border);
+      color: var(--text-main);
+      letter-spacing: 0.05em;
+      user-select: none;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 9999px;
+      background: var(--toggle-bg);
+      border: 1px solid var(--toggle-border);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--toggle-hover);
+      transform: translateY(-1px);
+    }
+
+    .theme-toggle-btn:focus-visible {
+      outline: 2px solid #6366f1;
+      outline-offset: 2px;
+    }
+
+    .theme-icon {
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 3rem 2.5rem;
+      border-radius: 24px;
+      max-width: 540px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 9999px;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      transition: color 0.3s ease;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent-gradient);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.55);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+    }
+
+    [data-theme="light"] .btn-secondary {
+      background: rgba(15, 23, 42, 0.04);
+      color: var(--text-main);
+      border-color: rgba(15, 23, 42, 0.12);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    [data-theme="light"] .btn-secondary:hover {
+      background: rgba(15, 23, 42, 0.08);
+    }
+
+    /* Features & Content Section (Scrollable Area) */
+    .content-container {
+      width: 100%;
+      max-width: 860px;
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      z-index: 1;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 1.75rem;
+      border-radius: 18px;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .feature-icon {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+
+    .feature-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+
+    .feature-desc {
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: var(--text-muted);
+    }
+
+    .site-footer {
+      text-align: center;
+      padding: 3rem 0 1rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* Back To Top Button */
+    .back-to-top-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 90;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--card-shadow);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .back-to-top-btn.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .back-to-top-btn:hover {
+      background: var(--toggle-hover);
+      border-color: rgba(99, 102, 241, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+    }
+
+    .back-to-top-btn:focus-visible {
+      outline: 2px solid #6366f1;
+      outline-offset: 3px;
+    }
+
+    .back-to-top-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      fill: none;
+      transition: transform 0.2s ease;
+    }
+
+    .back-to-top-btn:hover svg {
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 4.5rem 1rem 2rem;
+      }
+      .card {
+        padding: 2rem 1.5rem;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+      .site-header {
+        padding: 0.65rem 0.85rem;
+      }
+      .header-actions {
+        gap: 0.4rem;
+      }
+      .time-display {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.6rem;
+      }
+      .theme-toggle-btn {
+        padding: 0.35rem 0.65rem;
+        font-size: 0.75rem;
+      }
+      .back-to-top-btn {
+        bottom: 1.25rem;
+        right: 1.25rem;
+        width: 40px;
+        height: 40px;
+      }
+      .content-container {
+        margin-top: 2rem;
+      }
+    }
+
+    /* View Transitions Circular Reveal Animation (Issue #5) */
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation: none;
+      mix-blend-mode: normal;
+    }
+    ::view-transition-old(root) {
+      z-index: 1;
+    }
+    ::view-transition-new(root) {
+      z-index: 9999;
+    }
+
+    /* Konami Easter Egg: Retro & Gravity Collapse Styles */
+    .crt-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                  radial-gradient(circle, transparent 60%, rgba(0, 0, 0, 0.6) 100%);
+      background-size: 100% 4px, 100% 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    body.konami-active .crt-overlay {
+      opacity: 1;
+    }
+
+    .konami-banner {
+      position: fixed;
+      top: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      z-index: 1000;
+      background: #000000;
+      border: 2px solid #22c55e;
+      color: #22c55e;
+      font-family: ui-monospace, SFMono-Regular, "Courier New", monospace;
+      padding: 0.85rem 1.75rem;
+      border-radius: 8px;
+      box-shadow: 0 0 25px rgba(34, 197, 94, 0.6), inset 0 0 10px rgba(34, 197, 94, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+      text-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+      user-select: none;
+    }
+
+    body.konami-active .konami-banner {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .konami-text {
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .konami-reset-btn {
+      background: #22c55e;
+      color: #000000;
+      border: none;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.35rem 0.85rem;
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.7);
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+
+    .konami-reset-btn:hover {
+      background: #4ade80;
+      transform: scale(1.05);
+    }
+
+    /* Gravity Fall Keyframes */
+    @keyframes gravityFall {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      20% {
+        transform: translate(-3px, 2px) rotate(-2deg);
+      }
+      35% {
+        transform: translate(4px, -2px) rotate(3deg);
+      }
+      50% {
+        transform: translate(-5px, 8px) rotate(-6deg);
+      }
+      100% {
+        transform: translateY(120vh) rotate(var(--fall-rot, 35deg));
+        opacity: 0.3;
+      }
+    }
+
+    body.konami-active .card {
+      animation: gravityFall 1.8s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+      animation-delay: 0.2s;
+      --fall-rot: 28deg;
+    }
+
+    body.konami-active .site-header {
+      animation: gravityFall 1.6s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+      animation-delay: 0.5s;
+      --fall-rot: -22deg;
+    }
+
+    body.konami-active .feature-card:nth-child(1) {
+      animation: gravityFall 1.7s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+      animation-delay: 0.3s;
+      --fall-rot: -35deg;
+    }
+
+    body.konami-active .feature-card:nth-child(2) {
+      animation: gravityFall 1.9s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+      animation-delay: 0.1s;
+      --fall-rot: 42deg;
+    }
+
+    body.konami-active .feature-card:nth-child(3) {
+      animation: gravityFall 1.8s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+      animation-delay: 0.4s;
+      --fall-rot: -18deg;
+    }
+
+    body.konami-active .site-footer {
+      animation: gravityFall 1.5s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+      animation-delay: 0.6s;
+      --fall-rot: 15deg;
+    }
+
+    body.konami-active .back-to-top-btn {
+      animation: gravityFall 1.4s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+      animation-delay: 0.25s;
+      --fall-rot: 65deg;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand-title">myweb</div>
+    <div class="header-actions">
+      <div id="current-time" class="time-display" aria-label="現在時刻">--:--:--</div>
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="テーマを切り替える" type="button">
+        <span id="theme-icon" class="theme-icon">🌙</span>
+        <span id="theme-text" class="theme-text">Dark</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="card">
+    <div class="badge">Project Ready</div>
+    <h1>Welcome to myweb</h1>
+    <p>プロジェクトのセットアップが完了しました。<br>ここから新しいWebアプリケーションを構築できます。</p>
+    <div class="button-group">
+      <a href="#explore" class="btn btn-primary" id="btn-explore">はじめる</a>
+      <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" id="btn-repo">GitHub</a>
+    </div>
+  </main>
+
+  <div class="content-container" id="explore">
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">⚡</span>
+        <h2 class="feature-title">モダンな設計</h2>
+        <p class="feature-desc">Vanilla HTML/CSS/JS で構築され、フレームワーク不要の高速なパフォーマンスを実現します。</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🎨</span>
+        <h2 class="feature-title">スマートテーマ</h2>
+        <p class="feature-desc">OS設定との自動連動やローカル保存を備えた、シームレスなダーク/ライトモード切り替え。</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⏱️</span>
+        <h2 class="feature-title">リアルタイム表示</h2>
+        <p class="feature-desc">ヘッダーに配置された秒単位のリアルタイムクロックで、現在の時刻を常時確認できます。</p>
+      </div>
+    </div>
+    <footer class="site-footer">
+      <p>© 2026 myweb. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <button id="back-to-top" class="back-to-top-btn" aria-label="ページ上部へ戻る" type="button">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+
+  <div class="crt-overlay" id="crt-overlay"></div>
+  <div class="konami-banner" id="konami-banner" role="alert" aria-live="assertive">
+    <span class="konami-text">👾 KONAMI CODE ACTIVATED! 👾</span>
+    <button id="konami-reset" class="konami-reset-btn" type="button">RESTORE</button>
+  </div>
+
+  <script>
+    (function () {
+      /* 時計表示の更新処理 */
+      function updateClock() {
+        var now = new Date();
+        var hours = String(now.getHours()).padStart(2, '0');
+        var minutes = String(now.getMinutes()).padStart(2, '0');
+        var seconds = String(now.getSeconds()).padStart(2, '0');
+        var timeEl = document.getElementById('current-time');
+        if (timeEl) {
+          timeEl.textContent = hours + ':' + minutes + ':' + seconds;
+        }
+      }
+      updateClock();
+      setInterval(updateClock, 1000);
+
+      var themeToggle = document.getElementById('theme-toggle');
+      var themeIcon = document.getElementById('theme-icon');
+      var themeText = document.getElementById('theme-text');
+
+      function updateButtonUI(theme) {
+        if (theme === 'dark') {
+          themeIcon.textContent = '🌙';
+          themeText.textContent = 'Dark';
+          themeToggle.setAttribute('aria-label', 'ライトモードに切り替える');
+        } else {
+          themeIcon.textContent = '☀️';
+          themeText.textContent = 'Light';
+          themeToggle.setAttribute('aria-label', 'ダークモードに切り替える');
+        }
+      }
+
+      var currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      updateButtonUI(currentTheme);
+
+      function switchTheme(e) {
+        var activeTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+
+        function applyTheme() {
+          document.documentElement.setAttribute('data-theme', activeTheme);
+          try {
+            localStorage.setItem('theme', activeTheme);
+          } catch (err) {}
+          updateButtonUI(activeTheme);
+        }
+
+        /* トグルボタン位置またはクリック座標を円の中心にする */
+        var rect = themeToggle.getBoundingClientRect();
+        var x = (e && typeof e.clientX === 'number' && e.clientX > 0) ? e.clientX : (rect.left + rect.width / 2);
+        var y = (e && typeof e.clientY === 'number' && e.clientY > 0) ? e.clientY : (rect.top + rect.height / 2);
+
+        /* 画面四隅のうち最も遠い距離を最大半径とする */
+        var endRadius = Math.hypot(
+          Math.max(x, window.innerWidth - x),
+          Math.max(y, window.innerHeight - y)
+        );
+
+        /* View Transitions API のサポートおよびアクセシビリティ（動きの抑制）判定 */
+        if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          applyTheme();
+          return;
+        }
+
+        var transition = document.startViewTransition(function () {
+          applyTheme();
+        });
+
+        transition.ready.then(function () {
+          document.documentElement.animate(
+            {
+              clipPath: [
+                'circle(0px at ' + x + 'px ' + y + 'px)',
+                'circle(' + endRadius + 'px at ' + x + 'px ' + y + 'px)'
+              ]
+            },
+            {
+              duration: 550,
+              easing: 'ease-in-out',
+              pseudoElement: '::view-transition-new(root)'
+            }
+          );
+        });
+      }
+
+      if (themeToggle) {
+        themeToggle.addEventListener('click', switchTheme);
+      }
+
+      /* ページ上部へ戻るボタンの制御 */
+      var backToTopBtn = document.getElementById('back-to-top');
+      function handleScroll() {
+        if (window.scrollY > 200) {
+          backToTopBtn.classList.add('visible');
+        } else {
+          backToTopBtn.classList.remove('visible');
+        }
+      }
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      /* コナミコマンド (↑↑↓↓←→←→BA) ギミック */
+      var konamiSequence = [
+        'ArrowUp', 'ArrowUp',
+        'ArrowDown', 'ArrowDown',
+        'ArrowLeft', 'ArrowRight',
+        'ArrowLeft', 'ArrowRight',
+        'b', 'a'
+      ];
+      var konamiIndex = 0;
+
+      function triggerKonami() {
+        document.body.classList.add('konami-active');
+      }
+
+      function restoreKonami() {
+        document.body.classList.remove('konami-active');
+        konamiIndex = 0;
+      }
+
+      window.addEventListener('keydown', function (e) {
+        var key = e.key;
+        var expected = konamiSequence[konamiIndex];
+        if (key.toLowerCase() === expected.toLowerCase() || key === expected) {
+          konamiIndex++;
+          if (konamiIndex === konamiSequence.length) {
+            triggerKonami();
+            konamiIndex = 0;
+          }
+        } else {
+          konamiIndex = (key === konamiSequence[0]) ? 1 : 0;
+        }
+
+        if (e.key === 'Escape' && document.body.classList.contains('konami-active')) {
+          restoreKonami();
+        }
+      });
+
+      var resetBtn = document.getElementById('konami-reset');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', restoreKonami);
+      }
+
+      /* モバイル・タッチ向け代替トリガー（ロゴを素早く5回タップ） */
+      var logoEl = document.querySelector('.brand-title');
+      var tapCount = 0;
+      var lastTapTime = 0;
+      if (logoEl) {
+        logoEl.addEventListener('click', function () {
+          var now = Date.now();
+          if (now - lastTapTime < 600) {
+            tapCount++;
+            if (tapCount >= 5) {
+              triggerKonami();
+              tapCount = 0;
+            }
+          } else {
+            tapCount = 1;
+          }
+          lastTapTime = now;
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
+
