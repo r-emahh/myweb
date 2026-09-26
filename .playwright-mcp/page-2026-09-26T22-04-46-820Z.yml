@@ -1,0 +1,38 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]: myweb
+    - generic [ref=e4]:
+      - generic "現在時刻" [ref=e5]: 07:04:46
+      - button "ページ最下部へ移動" [ref=e6] [cursor=pointer]:
+        - generic [ref=e9]: 下部へ
+      - button "ダークモードに切り替える" [ref=e10] [cursor=pointer]:
+        - generic [ref=e11]: ☀️
+        - generic [ref=e12]: Light
+  - main [ref=e13]:
+    - generic [ref=e14]: Project Ready
+    - heading "Welcome to myweb" [level=1] [ref=e15]
+    - paragraph [ref=e16]: プロジェクトのセットアップが完了しました。ここから新しいWebアプリケーションを構築できます。
+    - generic [ref=e17]:
+      - link "はじめる" [ref=e18] [cursor=pointer]:
+        - /url: "#explore"
+      - link "GitHub" [ref=e19] [cursor=pointer]:
+        - /url: https://github.com
+  - generic [ref=e20]:
+    - generic [ref=e21]:
+      - generic [ref=e22]:
+        - generic [ref=e23]: ⚡
+        - heading "モダンな設計" [level=2] [ref=e24]
+        - paragraph [ref=e25]: Vanilla HTML/CSS/JS で構築され、フレームワーク不要の高速なパフォーマンスを実現します。
+      - generic [ref=e26]:
+        - generic [ref=e27]: 🎨
+        - heading "スマートテーマ" [level=2] [ref=e28]
+        - paragraph [ref=e29]: OS設定との自動連動やローカル保存を備えた、シームレスなダーク/ライトモード切り替え。
+      - generic [ref=e30]:
+        - generic [ref=e31]: ⏱️
+        - heading "リアルタイム表示" [level=2] [ref=e32]
+        - paragraph [ref=e33]: ヘッダーに配置された秒単位のリアルタイムクロックで、現在の時刻を常時確認できます。
+    - contentinfo [ref=e34]:
+      - paragraph [ref=e35]: © 2026 myweb. All rights reserved.
+  - alert [ref=e36]:
+    - generic [ref=e37]: 👾 KONAMI CODE ACTIVATED! 👾
+    - button "RESTORE" [ref=e38] [cursor=pointer]
