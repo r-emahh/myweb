@@ -665,7 +665,7 @@
       </div>
     </div>
     <footer class="site-footer">
-      <p>© 2026 myweb. All rights reserved.</p>
+      <p>© <span id="current-year">2026</span> myweb. All rights reserved.</p>
     </footer>
   </div>
 
@@ -696,6 +696,12 @@
       }
       updateClock();
       setInterval(updateClock, 1000);
+
+      /* フッターの年表示を動的更新 (Issue #8) */
+      var currentYearEl = document.getElementById('current-year');
+      if (currentYearEl) {
+        currentYearEl.textContent = String(new Date().getFullYear());
+      }
 
       var themeToggle = document.getElementById('theme-toggle');
       var themeIcon = document.getElementById('theme-icon');
