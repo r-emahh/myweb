@@ -50,6 +50,99 @@ IssueのRequirementsとAcceptance Criteriaを優先する。
 利用できない検証方法を
 勝手に成功扱いしない。
 
+## Project Automation Configuration
+
+検証を開始する前に、
+リポジトリルートの `.agents/automation.md` の存在を確認する。
+
+`.agents/automation.md` が存在する場合、
+その内容をプロジェクト固有の検証設定として
+他の推測より優先して使用する。
+
+設定されている場合は以下を確認する。
+
+- Base Branch
+- Development Server
+  - Start Command
+  - URL
+- Build
+- Lint
+- Type Check
+- Test
+- E2E
+- Browser
+
+`Not configured.` と定義されている項目は
+未設定として扱う。
+
+未設定の検証コマンドを推測して実行してはいけない。
+
+
+### Development Server
+
+`.agents/automation.md` に
+Development ServerのStart Commandが定義されている場合、
+ブラウザ検証では必ずそのコマンドを使用する。
+
+URLが定義されている場合、
+必ずそのURLを検証対象として使用する。
+
+定義済みのDevelopment Serverの代わりに
+一時的なHTTPサーバーを独自生成してはいけない。
+
+禁止例:
+
+- `node -e` を利用した一時HTTPサーバー
+- 独自生成したNode.jsサーバー
+- `python -m http.server`
+- その他の代替HTTPサーバー
+
+ただし `.agents/automation.md` のStart Commandとして
+そのコマンド自体が明示されている場合は使用してよい。
+
+
+### Server Lifecycle
+
+ブラウザ検証が必要な場合は以下の順序で処理する。
+
+1. `.agents/automation.md` のStart Commandを実行する
+2. 設定されたURLが到達可能になるまで待機する
+3. 設定されたURLに対してブラウザ検証を行う
+4. 必要なすべてのブラウザ検証を完了する
+5. Verifier自身が起動したDevelopment Serverを停止する
+
+既に設定URLでDevelopment Serverが正常に動作している場合は、
+既存プロセスを再利用してよい。
+
+Verifierが起動していない既存プロセスを
+勝手に停止してはいけない。
+
+
+### Verification Commands
+
+`.agents/automation.md` に
+Build、Lint、Type Check、Test、E2Eのコマンドが
+明示されている場合はそのコマンドを使用する。
+
+`Not configured.` の項目について、
+Verifierが代替コマンドを新しく生成してはいけない。
+
+`.agents/automation.md` が存在しない場合のみ、
+以下から既存の検証方法を調査する。
+
+- package.json
+- README
+- ビルド設定
+- テスト設定
+- CI設定
+- その他のリポジトリ内設定
+
+既存の正式な検証方法が見つからない場合は、
+その検証方法を利用できないものとして扱う。
+
+利用できない検証を
+実行したことにしてはいけない。
+
 ## 検証コマンド
 
 プロジェクトに既存のコマンドがある場合は
@@ -113,6 +206,9 @@ Playwrightが利用可能な場合、
 静的確認だけでUI関連項目をPASSにしてはいけない。
 
 必要であればローカル開発サーバーを起動する。
+
+Development Serverの起動方法は
+`Project Automation Configuration` の規則に従う。
 
 検証対象に応じて以下を確認する。
 
@@ -335,30 +431,3 @@ Verifierは以下を行わない。
 - Deploy
 
 Verifierの成果物はVerification Reportである。
-
-## Development Server
-
-ブラウザ検証でローカルHTTPサーバーが必要な場合、
-リポジトリに検証用サーバー起動コマンドが定義されていれば、
-独自の一時サーバーを生成せず、そのコマンドを優先する。
-
-このプロジェクトでは以下を使用する。
-
-`pwsh -File scripts/serve.ps1`
-
-Agentが `node -e`、`python -m http.server` などの
-代替サーバーを独自生成してはならない。
-
-## Project Automation Configuration
-
-検証開始前に `.agents/automation.md` が存在するか確認する。
-
-存在する場合:
-
-- 定義されたBuild / Lint / Type Check / Test / E2Eコマンドを使用する
-- Development Serverが定義されている場合、そのStart Commandを使用する
-- Browser検証では定義されたURLを使用する
-- 定義済みコマンドの代替となる一時コマンドを独自生成しない
-- `Not configured` の項目を推測して実行しない
-
-存在しない場合は、リポジトリの既存設定から利用可能な検証方法を調査する。

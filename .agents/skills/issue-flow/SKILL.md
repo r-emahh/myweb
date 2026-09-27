@@ -35,6 +35,8 @@ Implementation Plan
   ↓
 Git Safety Check
   ↓
+Base Branch Synchronization
+  ↓
 Issue Branch
   ↓
 Executor
@@ -55,7 +57,7 @@ Verifier
   │
   └─ PASS
        ↓
-    Reviewer
+     Reviewer
        │
        ├─ CHANGES_REQUESTED
        │        ↓
@@ -71,7 +73,7 @@ Verifier
        │
        └─ APPROVED
               ↓
-          Git Safety Check
+           Git Safety Check
               ↓
             Stage
               ↓
@@ -79,9 +81,9 @@ Verifier
               ↓
              Push
               ↓
-        Pull Request
+         Pull Request
               ↓
-       Workflow Report
+        Workflow Report
 
 
 # 1. Issue
@@ -134,6 +136,28 @@ Executorを開始する前にIssue専用branchを準備する。
 `master` 上で直接実装してはいけない。
 
 
+## Base Branch Synchronization
+
+新しいIssueの作業を開始する前に、
+Base Branchを安全に最新化する。
+
+このプロジェクトでは以下の順序を使用する。
+
+1. `git switch master`
+2. `git pull --ff-only origin master`
+
+通常の `git pull origin master` は使用しない。
+
+`--ff-only` で更新できない場合、
+merge、rebase、reset等による自動解決を行わない。
+
+その場合はWorkflowを停止し、
+BLOCKEDとして報告する。
+
+Base Branchの同期が完了してから
+Issue専用branchを作成する。
+
+
 ## Branch Name
 
 Issueを処理する場合は以下の形式を使用する。
@@ -144,7 +168,7 @@ Issueを処理する場合は以下の形式を使用する。
 
 `issue/12-add-dark-mode`
 
-short-descriptionには
+short-descriptionには、
 Issueの内容を表す短いkebab-caseの英語名を使用する。
 
 
@@ -417,6 +441,32 @@ VerifierがPASSし、
 ReviewerがAPPROVEDした場合のみcommitを許可する。
 
 
+## Automation-safe Git Commands
+
+Git操作では、Permission Policyで許可された
+単純な単一コマンドを優先する。
+
+複数のGit操作を `;`、`&&`、`||` 等で
+1つのShell Commandへ結合してはいけない。
+
+例:
+
+使用する:
+
+`git switch master`
+
+`git pull --ff-only origin master`
+
+使用しない:
+
+`git switch master; git pull origin master`
+
+`git switch master && git pull origin master`
+
+Permission確認を回避する目的で
+別コマンドへ置き換えてはいけない。
+
+
 ## Commit Preconditions
 
 commit前に以下をすべて確認する。
@@ -434,10 +484,11 @@ commit前に以下をすべて確認する。
 
 ## Staging
 
-原則として以下を使用しない。
+以下を使用してはいけない。
 
 - `git add .`
 - `git add -A`
+- `git add --all`
 
 Issueに関係するファイルを確認し、
 必要なファイルだけを明示的にstageする。
@@ -612,6 +663,8 @@ Issue FlowはPull Requestをmergeしない。
 - Auto Mergeの有効化
 - `master`への直接merge
 - Pull Request承認の代行
+- Pull RequestのClose
+- Issueの手動Close
 - merge後のbranch削除
 
 最終的なmerge判断は人間が行う。
@@ -711,18 +764,29 @@ None.
 
 ## Workflow Status
 
-COMPLETE
+COMPLETE / BLOCKED / FAILED
 
 ## Automation Blocked
 
-No
+Yes / No
+
+Yesの場合は、
+自動化を継続できなかった理由を書く。
 
 ## Human Action Required
+
+Yes / No
+
+Pull Request作成まで正常完了した場合:
 
 Yes
 
 - Pull Requestの最終確認
 - Merge判断
+
+BLOCKEDまたはFAILEDの場合は、
+人間による対応が必要かどうかを実際の状況に応じて記録する。
+
 
 # 16. Safety Rules
 
@@ -751,8 +815,13 @@ Issue Flowは以下を行わない。
 - `git push --force-with-lease`を使用する
 - `git add .`を使用する
 - `git add -A`を使用する
+- `git add --all`を使用する
+- `git pull origin master` による暗黙的merge
 - 過去commitを書き換える
 - rebaseによって公開済み履歴を書き換える
+- `gh pr merge`を使用する
+- `gh pr close`を使用する
+- `gh issue close`を使用する
 - Pull Requestを自動mergeする
 - Auto Mergeを有効化する
 - Git Workflowで明示的に許可されていない破壊的Git操作を行う
