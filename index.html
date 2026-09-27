@@ -163,7 +163,7 @@
       gap: 0.75rem;
     }
 
-    /* Clock Display */
+    /* Clock Display (Issue #22) */
     .time-display {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       font-size: 0.85rem;
@@ -757,7 +757,7 @@
 
   <script>
     (function () {
-      /* 時計表示の更新処理 */
+      /* 時計表示の更新処理 (Issue #22) */
       function updateClock() {
         var now = new Date();
         var hours = String(now.getHours()).padStart(2, '0');
@@ -769,7 +769,7 @@
         }
       }
       updateClock();
-      setInterval(updateClock, 1000);
+      var clockTimer = setInterval(updateClock, 1000);
 
       /* フッターの年表示を動的更新 (Issue #8) */
       var currentYearEl = document.getElementById('current-year');
