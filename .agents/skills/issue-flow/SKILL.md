@@ -178,6 +178,8 @@ Planning GateをPASSとして次工程へ進む。
 
 # 3. Git Branch
 
+## Git Configuration Resolution
+
 ### Dirty Working Tree Safety
 
 Issue processing MUST NOT begin unless the working tree is clean.
@@ -292,22 +294,80 @@ Workflow Reportには以下を記録する。
 新しいIssueの作業を開始する前に、
 Base Branchを安全に最新化する。
 
-このプロジェクトでは以下の順序を使用する。
+`.agents/automation.md`から
+`Git > Base Branch`と`Git > Remote`を読み取り、
+両方が妥当で、
+対象branchとremoteがGit上に存在することを確認する。
 
-1. `git switch master`
-2. `git pull --ff-only origin master`
+欠落・不正・不一致があれば推測せず
+WorkflowをBLOCKEDとして停止する。
 
-通常の `git pull origin master` は使用しない。
+次の操作を個別のコマンドとして順に実行する。
 
-`--ff-only` で更新できない場合、
+1. `git switch <configured-base-branch>`
+2. `git pull --ff-only <configured-remote> <configured-base-branch>`
+
+ここで使用する`<configured-base-branch>`と
+`<configured-remote>`は、
+`.agents/automation.md`から取得した値と
+完全に一致しなければならない。
+
+上記のコマンド形式は単なる例ではなく、
+Base Branch Synchronizationで使用する
+正式な操作として扱う。
+
+以下のような代替操作へ
+独自に置き換えてはいけない。
+
+- `git checkout <branch>`
+- 設定されていないbranchへの`git switch`
+- `main`、`master`、`develop`等を推測したbranch切り替え
+- 設定されていないremoteを使用した`git pull`
+- `--ff-only`を省略した`git pull`
+- merge、rebase、reset等による同期
+- その他、設定されたGit操作を独自に代替するコマンド
+
+Permission要求などにより
+定義されたGitコマンドの実行が拒否または中断された場合も、
+別のGitコマンドへフォールバックしてはいけない。
+
+例えば、
+
+`git switch <configured-base-branch>`
+
+が拒否された場合に、
+
+`git checkout <configured-base-branch>`
+
+へ置き換えて実行してはいけない。
+
+コマンド実行前に、
+実行予定のbranch名とremote名が
+`.agents/automation.md`の設定値と一致していることを
+再確認する。
+
+一致しない場合はコマンドを実行してはいけない。
+
+`git pull --ff-only`で更新できない場合も、
 merge、rebase、reset等による自動解決を行わない。
 
-その場合はWorkflowを停止し、
+以下の場合はWorkflowを停止し、
 BLOCKEDとして報告する。
 
-Base Branchの同期が完了してから
-Issue専用branchを作成する。
+- Base Branchを特定できない
+- Remoteを特定できない
+- 設定値と実行予定のGit操作が一致しない
+- 設定されたGitコマンドを実行できない
+- Permission要求が拒否された
+- `git pull --ff-only`で同期できない
+- 安全に同期できることを確認できない
 
+この場合、
+Issue Flow自身で代替手段を推測して
+Workflowを継続してはいけない。
+
+Base Branchの同期が正常に完了してから
+Issue専用branchを作成する。
 
 ## Branch Name
 
