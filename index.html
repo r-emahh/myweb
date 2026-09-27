@@ -799,6 +799,7 @@
       function switchTheme(e) {
         var activeTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
 
+        /* テーマ切り替えトランジション演出 (Issue #24) */
         function applyTheme() {
           document.documentElement.setAttribute('data-theme', activeTheme);
           try {
@@ -837,7 +838,7 @@
               ]
             },
             {
-              duration: 550,
+              duration: 400,
               easing: 'ease-in-out',
               pseudoElement: '::view-transition-new(root)'
             }
