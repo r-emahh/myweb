@@ -119,8 +119,56 @@ PlannerからImplementation Planを取得する。
 Implementation Planが作成されるまで
 Executorを開始してはいけない。
 
-Plannerが重大な仕様上の不明点を報告した場合は、
-人間への確認が必要か判断する。
+
+## Planning Gate
+
+Plannerの結果を確認し、
+Implementation Planが実行可能な状態で確定している場合のみ
+Git Branch工程へ進んでよい。
+
+Plannerが以下のいずれかを報告した場合、
+Planning GateはPASSしていないものとして扱う。
+
+- Requirements間の矛盾
+- Acceptance Criteria間の矛盾
+- 実装方針を決定できない重大な曖昧さ
+- Issueの要求を変更しなければ解決できない問題
+- 人間による仕様判断が必要な問題
+
+Planning GateがPASSしていない場合、
+Issue Flow自身が仕様を推測・補完・選択してはいけない。
+
+必要な仕様を人間へ確認し、
+回答が得られるまでWorkflowを停止する。
+
+この状態では以下を行ってはいけない。
+
+- Base Branchの同期
+- branchの切り替え
+- Issue専用branchの作成
+- Executorの開始
+- ファイルの変更
+- stage
+- commit
+- push
+- Pull Requestの作成
+
+人間から回答を得た場合、
+回答を元のIssue要求に対する追加仕様としてPlannerへ渡し、
+Plannerを再実行する。
+
+再実行したPlannerが実行可能なImplementation Planを作成した場合のみ、
+Planning GateをPASSとして次工程へ進む。
+
+人間への確認待ちで停止する場合は、
+以下を報告する。
+
+- `Workflow Status: WAITING_FOR_CLARIFICATION`
+- `Automation Blocked: Yes`
+- `Human Action Required: Yes`
+- 確定できないRequirementsまたはAcceptance Criteria
+- 人間に確認する具体的な質問
+- Implementationを開始していないこと
 
 
 # 3. Git Branch
@@ -785,7 +833,6 @@ Issue FlowはPull Requestをmergeしない。
 人間への確認が不要な問題については
 可能な範囲で自律的に処理を継続する。
 
-
 # 15. Workflow Report
 
 正常終了時または停止時に
@@ -797,7 +844,7 @@ Workflow Reportを作成する。
 
 ## Result
 
-COMPLETE / BLOCKED / FAILED
+COMPLETE / BLOCKED / FAILED / WAITING_FOR_CLARIFICATION
 
 ## Issue
 
