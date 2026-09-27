@@ -163,13 +163,13 @@ Planning GateをPASSとして次工程へ進む。
 人間への確認待ちで停止する場合は、
 以下を報告する。
 
-- `Workflow Status: WAITING_FOR_CLARIFICATION`
+- `Result: WAITING_FOR_CLARIFICATION`
+- `Workflow Status: BLOCKED`
 - `Automation Blocked: Yes`
 - `Human Action Required: Yes`
 - 確定できないRequirementsまたはAcceptance Criteria
 - 人間に確認する具体的な質問
 - Implementationを開始していないこと
-
 
 # 3. Git Branch
 
@@ -907,6 +907,19 @@ None.
 ## Workflow Status
 
 COMPLETE / BLOCKED / FAILED
+
+`Result` はWorkflowの最終的な結果を表す。
+
+`Workflow Status` はWorkflow自体の実行状態を表す。
+
+人間による仕様確認を待っている場合は以下とする。
+
+- `Result: WAITING_FOR_CLARIFICATION`
+- `Workflow Status: BLOCKED`
+- `Automation Blocked: Yes`
+- `Human Action Required: Yes`
+
+`Result` と `Workflow Status` を機械的に同じ値へ揃えてはいけない。
 
 ## Automation Blocked
 
