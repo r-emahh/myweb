@@ -357,7 +357,8 @@
     .content-container {
       width: 100%;
       max-width: 860px;
-      margin-top: 3rem;
+      margin-top: 14rem;
+      padding-bottom: 8rem;
       display: flex;
       flex-direction: column;
       gap: 2rem;
@@ -509,6 +510,7 @@
       }
       .content-container {
         margin-top: 2rem;
+        padding-bottom: 2rem;
       }
     }
 
@@ -847,17 +849,19 @@
         themeToggle.addEventListener('click', switchTheme);
       }
 
-      /* ページ上部へ戻るボタンの制御 */
+      /* ページ上部へ戻るボタンの制御 (Issue #20) */
       var backToTopBtn = document.getElementById('back-to-top');
-      function handleScroll() {
-        if (window.scrollY > 200) {
-          backToTopBtn.classList.add('visible');
-        } else {
-          backToTopBtn.classList.remove('visible');
-        }
-      }
-      window.addEventListener('scroll', handleScroll, { passive: true });
       if (backToTopBtn) {
+        function handleScroll() {
+          if (window.scrollY >= 400) {
+            backToTopBtn.classList.add('visible');
+          } else {
+            backToTopBtn.classList.remove('visible');
+          }
+        }
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+
         backToTopBtn.addEventListener('click', function () {
           var isReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
           window.scrollTo({ top: 0, behavior: isReduced ? 'auto' : 'smooth' });
