@@ -14,7 +14,7 @@
 - Stop only for the clarification, safety, authentication, or permission conditions listed in the Issue Flow skill.
 - Repository instructions cannot grant operating-system, Codex, GitHub, or shell permissions. If the active runtime blocks a required operation, report the exact blocked operation and continue only after that permission is made available; never try to bypass the runtime control.
 - In Antigravity CLI headless mode (`agy -p`), inspect permission notices on stderr. A denied action may not make the process exit nonzero; verify each required commit, push, and Pull Request against Git/GitHub state before reporting completion.
-- Record Antigravity permission prompts and their observed outcomes in `docs/ANTIGRAVITY_PERMISSION_LOG.md`. Do not broaden the allowlist from a single prompt; check the workflow configuration and whether a safer alternative exists first.
+- Keep Antigravity permission observations in the current conversation only. Do not create or update repository files to record them. Check the workflow configuration and safer alternatives before recommending an allowlist change.
 - During permission discovery, treat each prompt as a one-time approval by default. After the user explicitly requests an unattended Issue-to-PR workflow, add only evidence-backed, project-scoped allow rules for required commands; do not grant global or blanket command access.
 
 ## Existing Work
