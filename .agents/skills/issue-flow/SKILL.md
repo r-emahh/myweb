@@ -125,6 +125,49 @@ Plannerが重大な仕様上の不明点を報告した場合は、
 
 # 3. Git Branch
 
+### Dirty Working Tree Safety
+
+Issue processing MUST NOT begin unless the working tree is clean.
+
+At workflow start, run:
+
+`git status --porcelain`
+
+If the command returns any output, including:
+
+- modified tracked files
+- staged changes
+- untracked files
+- deleted files
+- renamed files
+
+the workflow MUST immediately stop with `BLOCKED`.
+
+The agent MUST NOT attempt to determine whether the existing changes are related or unrelated to the Issue.
+
+When blocked by a dirty working tree, the agent MUST NOT:
+
+- modify files
+- create or switch branches
+- stage files
+- commit
+- stash
+- reset
+- restore
+- clean
+- discard existing changes
+- push
+- create a Pull Request
+
+The agent MUST leave the working tree unchanged and report:
+
+- `Workflow Status: BLOCKED`
+- `Automation Blocked: Yes`
+- the paths reported by `git status --porcelain`
+- `Human Action Required: Yes`
+
+Only the user may decide how the pre-existing working tree changes should be handled.
+
 Implementation Plan作成後、
 Executorを開始する前にIssue専用branchを準備する。
 
@@ -134,6 +177,61 @@ Executorを開始する前にIssue専用branchを準備する。
 このプロジェクトのBase Branchは `master` とする。
 
 `master` 上で直接実装してはいけない。
+
+## Working Tree Safety Check
+
+Base Branchの同期、branch切り替え、Issue専用branchの作成を行う前に、
+Working Treeが完全にcleanであることを確認する。
+
+以下を実行する。
+
+`git status --porcelain`
+
+出力が空の場合のみWorkflowを継続してよい。
+
+1行でも出力が存在する場合、
+変更内容がIssueと関係するかどうかを判断してはいけない。
+
+以下を含むすべての既存変更をdirtyとして扱う。
+
+- modified files
+- staged files
+- untracked files
+- deleted files
+- renamed files
+
+Working Treeがdirtyの場合、
+Workflowを直ちにBLOCKEDとして停止する。
+
+この場合、以下を行ってはいけない。
+
+- ファイルの変更
+- ファイルの削除
+- stash
+- reset
+- restore
+- clean
+- 既存変更のcommit
+- stage
+- Base Branchの同期
+- branchの切り替え
+- Issue専用branchの作成
+- push
+- Pull Requestの作成
+
+既存変更がIssueと無関係であり、
+安全に分離できるように見える場合でもWorkflowを継続してはいけない。
+
+既存変更をどのように扱うかは人間が判断する。
+
+Workflow Reportには以下を記録する。
+
+- `Result: BLOCKED`
+- `Workflow Status: BLOCKED`
+- `Automation Blocked: Yes`
+- `Human Action Required: Yes`
+- `git status --porcelain` で検出した対象ファイル
+- Git操作および実装を開始していないこと
 
 
 ## Base Branch Synchronization
@@ -179,26 +277,23 @@ branch作成前に以下を確認する。
 - 現在のbranch
 - Working Treeの状態
 - Base Branchが存在すること
-- Issueと無関係な未commit変更が存在しないこと
+- Working Tree Safety CheckをPASSしていること
 
 Issue専用branchが存在しない場合は作成する。
 
 既に対象Issueのbranchが存在する場合は、
 安全に再利用できることを確認して使用する。
 
-
 ## Existing Changes
 
-Issueと無関係な未commit変更が存在する場合、
-勝手に以下を行ってはいけない。
+Workflow開始時に既存変更が検出された場合は、
+Working Tree Safety Checkの規則に従う。
 
-- 削除
-- stash
-- commit
-- 上書き
+既存変更がIssueと関係するか、
+安全に分離可能かをIssue Flow自身で判断してはいけない。
 
-既存変更との衝突リスクがある場合は
-BLOCKEDとして人間へ報告する。
+Working Treeがcleanになるまで
+Issueの実装を開始してはいけない。
 
 
 # 4. Executor
