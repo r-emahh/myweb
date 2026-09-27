@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>myweb - Welcome</title>
-  <meta name="description" content="Welcome to myweb, a modern and elegant web workspace.">
+  <title>株式会社pop - POP制作所 | Webサイト制作・UI/UXデザイン</title>
+  <meta name="description" content="株式会社pop（POP制作所）は、魅力を最大限に引き出すWebサイト制作・UI/UXデザインを手掛ける制作スタジオです。企画・デザインから実装・運用まで一貫してサポートします。">
   <script>
     /* FOUC (Flash of Unstyled Content) 防止のための初期テーマ判定 */
     (function () {
@@ -594,7 +594,16 @@
       color: var(--text-muted);
     }
 
-    /* Corporate Content Sections (Issue #31) */
+    .hero-sub {
+      display: block;
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-top: 0.35rem;
+      opacity: 0.95;
+    }
+
+    /* Corporate Content Sections (Issue #31, #33) */
     .content-section {
       scroll-margin-top: 5.5rem;
       width: 100%;
@@ -711,6 +720,61 @@
       margin-top: 0.5rem;
       align-self: flex-start;
       padding: 0.75rem 2rem;
+    }
+
+    /* Process Section (Issue #33) */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      width: 100%;
+    }
+
+    .process-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 1.75rem 1.5rem;
+      border-radius: 18px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .process-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .process-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--accent-gradient);
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    .process-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+
+    .process-desc {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text-muted);
     }
 
     .site-footer {
@@ -1090,9 +1154,9 @@
   <canvas id="particle-canvas" class="particle-canvas" aria-hidden="true"></canvas>
   <header class="site-header" id="site-header">
     <div class="header-left">
-      <a href="#" class="brand-logo" id="brand-logo" aria-label="myweb ホーム">
-        <img src="public/logo.svg" alt="myweb" class="logo-img" onerror="this.style.display='none';">
-        <span class="brand-title">myweb</span>
+      <a href="#" class="brand-logo" id="brand-logo" aria-label="POP制作所 ホーム">
+        <img src="public/logo.svg" alt="POP制作所" class="logo-img" onerror="this.style.display='none';">
+        <span class="brand-title">POP制作所</span>
       </a>
     </div>
 
@@ -1100,6 +1164,7 @@
       <nav class="site-nav" id="site-nav" aria-label="メインナビゲーション">
         <ul class="nav-list">
           <li class="nav-item"><a href="#services" class="nav-link">サービス</a></li>
+          <li class="nav-item"><a href="#process" class="nav-link">制作の流れ</a></li>
           <li class="nav-item"><a href="#company" class="nav-link">会社概要</a></li>
           <li class="nav-item"><a href="#contact" class="nav-link">問い合わせ</a></li>
         </ul>
@@ -1132,46 +1197,77 @@
 
   <main class="card">
     <canvas id="polyhedron-canvas" class="polyhedron-canvas" width="560" height="560" aria-hidden="true"></canvas>
-    <div class="badge">Project Ready</div>
-    <h1>Welcome to myweb</h1>
-    <p>プロジェクトのセットアップが完了しました。<br>ここから新しいWebアプリケーションを構築できます。</p>
+    <div class="badge">Web Creative Studio</div>
+    <h1>株式会社pop<br><span class="hero-sub">POP制作所</span></h1>
+    <p>魅力を最大限に引き出すWebサイト制作・UI/UXデザイン。<br>企画・ブランディングから開発・運用まで、ビジネスの成長を支援します。</p>
     <div class="button-group">
-      <a href="#explore" class="btn btn-primary" id="btn-explore">はじめる</a>
-      <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" id="btn-repo">GitHub</a>
+      <a href="#services" class="btn btn-primary" id="btn-services">サービスを見る</a>
+      <a href="#process" class="btn btn-secondary" id="btn-process">制作の流れ</a>
     </div>
   </main>
 
   <div class="content-container" id="explore">
     <section id="services" class="content-section">
       <h2 class="section-title">サービス</h2>
-      <p class="section-subtitle">最新のWebテクノロジーと洗練されたデザインで、高品質な体験を提供します。</p>
+      <p class="section-subtitle">Webサイト制作からUI/UXデザインまで、ビジネス課題を解決するクリエイティブを提供します。</p>
       <div class="features-grid">
         <div class="feature-card">
-          <span class="feature-icon">⚡</span>
-          <h3 class="feature-title">モダンな設計</h3>
-          <p class="feature-desc">Vanilla HTML/CSS/JS で構築され、フレームワーク不要の高速なパフォーマンスを実現します。</p>
+          <span class="feature-icon">🌐</span>
+          <h3 class="feature-title">コーポレートサイト制作</h3>
+          <p class="feature-desc">企業の信頼性と魅力を高めるオリジナルWebサイトを制作。ブランディングからレスポンシブ対応まで一貫して手掛けます。</p>
         </div>
         <div class="feature-card">
           <span class="feature-icon">🎨</span>
-          <h3 class="feature-title">スマートテーマ</h3>
-          <p class="feature-desc">OS設定との自動連動やローカル保存を備えた、シームレスなダーク/ライトモード切り替え。</p>
+          <h3 class="feature-title">UI/UXデザイン</h3>
+          <p class="feature-desc">ユーザーの行動心理に基づいた直感的で使いやすいインターフェースを設計。高いコンバージョンと快適な体験を実現します。</p>
         </div>
         <div class="feature-card">
-          <span class="feature-icon">⏱️</span>
-          <h3 class="feature-title">リアルタイム表示</h3>
-          <p class="feature-desc">ヘッダーに配置された秒単位のリアルタイムクロックで、現在の時刻を常時確認できます。</p>
+          <span class="feature-icon">⚡</span>
+          <h3 class="feature-title">パフォーマンス・改善</h3>
+          <p class="feature-desc">高速な表示速度とSEO最適化、安全なコード設計により、長期的に成果を生み出し続けるWebサイトへと進化させます。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="process" class="content-section">
+      <h2 class="section-title">制作の流れ</h2>
+      <p class="section-subtitle">お客様の想いを形にする、安心で丁寧な制作プロセスをご案内します。</p>
+      <div class="process-grid">
+        <div class="process-card">
+          <span class="process-num">01</span>
+          <h3 class="process-title">ヒアリング・企画</h3>
+          <p class="process-desc">事業の目的、ターゲット、課題を詳しくお伺いし、最適なサイト構成と戦略プランをご提案します。</p>
+        </div>
+        <div class="process-card">
+          <span class="process-num">02</span>
+          <h3 class="process-title">デザイン・設計</h3>
+          <p class="process-desc">ブランドイメージを体現するビジュアルデザインと、使いやすさを追求したプロトタイプを作成します。</p>
+        </div>
+        <div class="process-card">
+          <span class="process-num">03</span>
+          <h3 class="process-title">実装・品質検証</h3>
+          <p class="process-desc">モダンで堅牢なコーディングを行い、PC・スマートフォン・各種ブラウザでの表示と動作を徹底検証します。</p>
+        </div>
+        <div class="process-card">
+          <span class="process-num">04</span>
+          <h3 class="process-title">公開・運用サポート</h3>
+          <p class="process-desc">サーバー公開作業から初期設定、公開後の更新や改善のご相談までしっかりとサポートいたします。</p>
         </div>
       </div>
     </section>
 
     <section id="company" class="content-section">
       <h2 class="section-title">会社概要</h2>
-      <p class="section-subtitle">洗練された技術と創造力で、Webの未来を切り拓くスタジオです。</p>
+      <p class="section-subtitle">想いをカタチにする、Webクリエイティブスタジオです。</p>
       <div class="company-card">
         <dl class="company-details">
           <div class="detail-row">
             <dt>社名</dt>
-            <dd>myweb株式会社</dd>
+            <dd>株式会社pop</dd>
+          </div>
+          <div class="detail-row">
+            <dt>事業名</dt>
+            <dd>POP制作所</dd>
           </div>
           <div class="detail-row">
             <dt>設立</dt>
@@ -1179,7 +1275,7 @@
           </div>
           <div class="detail-row">
             <dt>事業内容</dt>
-            <dd>Webアプリケーション開発、UI/UXデザイン、パフォーマンス最適化</dd>
+            <dd>Webサイト制作・保守運用、UI/UXデザイン、Webフロントエンド開発</dd>
           </div>
           <div class="detail-row">
             <dt>所在地</dt>
@@ -1191,7 +1287,7 @@
 
     <section id="contact" class="content-section">
       <h2 class="section-title">お問い合わせ</h2>
-      <p class="section-subtitle">プロジェクトのご相談やご質問など、お気軽にお問い合わせください。</p>
+      <p class="section-subtitle">Webサイト制作やリニューアルのご相談など、お気軽にお問い合わせください。</p>
       <div class="contact-card">
         <form class="contact-form" id="contact-form" onsubmit="event.preventDefault(); alert('お問い合わせを受け付けました。');">
           <div class="form-group">
@@ -1200,11 +1296,11 @@
           </div>
           <div class="form-group">
             <label for="contact-email">メールアドレス</label>
-            <input type="email" id="contact-email" class="form-input" placeholder="example@myweb.local" required>
+            <input type="email" id="contact-email" class="form-input" placeholder="example@pop-seisaku.local" required>
           </div>
           <div class="form-group">
             <label for="contact-message">お問い合わせ内容</label>
-            <textarea id="contact-message" class="form-textarea" rows="4" placeholder="お問い合わせ内容をご記入ください" required></textarea>
+            <textarea id="contact-message" class="form-textarea" rows="4" placeholder="Webサイト制作のご相談やご質問をご記入ください" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary contact-submit-btn">送信する</button>
         </form>
@@ -1212,8 +1308,8 @@
     </section>
 
     <footer class="site-footer">
-      <p>© <span id="current-year">2026</span> myweb. All rights reserved.</p>
-      <p class="footer-note">Built with HTML, CSS and JavaScript</p>
+      <p>© <span id="current-year">2026</span> 株式会社pop (POP制作所). All rights reserved.</p>
+      <p class="footer-note">Web Creative Studio - POP制作所</p>
     </footer>
   </div>
 
@@ -1237,7 +1333,7 @@
         var siteNav = document.getElementById('site-nav');
         var brandLogo = document.getElementById('brand-logo');
         var headerCtaBtn = document.getElementById('header-cta-btn');
-        var navLinks = document.querySelectorAll('.nav-link, .mobile-cta-btn');
+        var navLinks = document.querySelectorAll('.nav-link, .mobile-cta-btn, #btn-services, #btn-process');
 
         function closeMenu() {
           if (siteNav && siteNav.classList.contains('is-open')) {
