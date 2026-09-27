@@ -1182,16 +1182,18 @@
     <div class="header-right">
       <nav class="site-nav" id="site-nav" aria-label="メインナビゲーション">
         <ul class="nav-list">
-          <li class="nav-item"><a href="#services" class="nav-link">サービス</a></li>
-          <li class="nav-item"><a href="#process" class="nav-link">制作の流れ</a></li>
-          <li class="nav-item"><a href="#company" class="nav-link">会社概要</a></li>
+          <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+          <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="news.html" class="nav-link">News</a></li>
+          <li class="nav-item"><a href="recruit.html" class="nav-link">Recruit</a></li>
         </ul>
         <div class="mobile-cta">
-          <a href="#contact" class="btn-cta header-cta mobile-cta-btn">お問い合わせ</a>
+          <a href="contact.html" class="btn-cta header-cta mobile-cta-btn">お問い合わせ</a>
         </div>
       </nav>
 
-      <a href="#contact" class="btn-cta header-cta" id="header-cta-btn">お問い合わせ</a>
+      <a href="contact.html" class="btn-cta header-cta" id="header-cta-btn">お問い合わせ</a>
 
       <div class="header-actions">
         <div id="current-time" class="time-display" aria-label="現在時刻">--:--:--</div>
@@ -1225,6 +1227,33 @@
   </main>
 
   <div class="content-container" id="explore">
+    <section id="news" class="content-section" style="margin-bottom: 3.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2 class="section-title">最新情報</h2>
+          <p class="section-subtitle">POP制作所の最新リリース・更新情報</p>
+        </div>
+        <a href="news.html" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.4rem 1rem;">すべてのお知らせを見る →</a>
+      </div>
+      <div style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 1rem 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--card-border); flex-wrap: wrap; gap: 0.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <time style="font-size: 0.85rem; color: var(--text-muted);">2026.09.28</time>
+            <span style="font-size: 0.75rem; padding: 0.2rem 0.5rem; background: var(--ambient-glow); border-radius: 4px; font-weight: 700; color: #6366f1;">プレスリリース</span>
+            <a href="news.html" style="color: var(--text-main); text-decoration: none; font-weight: 600; font-size: 0.95rem;">株式会社pop 公式コーポレートサイトをリニューアルオープンしました</a>
+          </div>
+          <span style="color: var(--text-muted); font-size: 0.85rem;">NEW</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; flex-wrap: wrap; gap: 0.5rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <time style="font-size: 0.85rem; color: var(--text-muted);">2026.09.20</time>
+            <span style="font-size: 0.75rem; padding: 0.2rem 0.5rem; background: var(--ambient-glow); border-radius: 4px; font-weight: 700; color: #6366f1;">制作実績</span>
+            <a href="news.html" style="color: var(--text-main); text-decoration: none; font-weight: 600; font-size: 0.95rem;">次世代モビリティテック企業様のブランドサイトを公開いたしました</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="services" class="content-section">
       <h2 class="section-title">サービス</h2>
       <p class="section-subtitle">Webサイト制作からUI/UXデザインまで、ビジネス課題を解決するクリエイティブを提供します。</p>
@@ -1244,6 +1273,9 @@
           <h3 class="feature-title">パフォーマンス・改善</h3>
           <p class="feature-desc">高速な表示速度とSEO最適化、安全なコード設計により、長期的に成果を生み出し続けるWebサイトへと進化させます。</p>
         </div>
+      </div>
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="services.html" class="btn btn-secondary">サービス詳細・制作事例を見る →</a>
       </div>
     </section>
 
@@ -1300,6 +1332,9 @@
             <dd>東京都渋谷区</dd>
           </div>
         </dl>
+        <div style="text-align: center; margin-top: 2rem;">
+          <a href="about.html" class="btn btn-secondary">経営理念・代表挨拶・アクセスマップを見る →</a>
+        </div>
       </div>
     </section>
 
@@ -1322,10 +1357,21 @@
           </div>
           <button type="submit" class="btn btn-primary contact-submit-btn">送信する</button>
         </form>
+        <div style="text-align: center; margin-top: 1.5rem;">
+          <a href="contact.html" style="color: var(--text-muted); font-size: 0.9rem; text-decoration: underline;">詳細なお見積もりや採用エントリー専用フォームはこちら →</a>
+        </div>
       </div>
     </section>
 
     <footer class="site-footer">
+      <ul class="footer-nav" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1.5rem; list-style: none;">
+        <li><a href="index.html" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Home</a></li>
+        <li><a href="services.html" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Services</a></li>
+        <li><a href="about.html" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">About</a></li>
+        <li><a href="news.html" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">News</a></li>
+        <li><a href="recruit.html" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Recruit</a></li>
+        <li><a href="contact.html" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Contact</a></li>
+      </ul>
       <p>© <span id="current-year">2026</span> 株式会社pop (POP制作所). All rights reserved.</p>
       <p class="footer-note">Web Creative Studio - POP制作所</p>
     </footer>
