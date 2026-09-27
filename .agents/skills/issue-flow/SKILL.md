@@ -19,6 +19,11 @@ Issue Flow自身はコードを実装しない。
 
 通常の実装判断では人間へ確認を求めない。
 
+Planning Gateを通過し、VerificationがPASS、ReviewがAPPROVEDで、
+GitHubおよび実行環境の必要な権限が利用可能な場合は、
+ユーザーへの追加承認を求めずcommit・push・Pull Request作成まで実行する。
+Pull Requestのmergeは行わず、人間の判断に委ねる。
+
 安全性、仕様、権限などの理由により
 自律的な判断が適切でない場合のみ停止する。
 
@@ -609,6 +614,24 @@ Git操作では、Permission Policyで許可された
 Permission確認を回避する目的で
 別コマンドへ置き換えてはいけない。
 
+Antigravity CLIのheadless mode (`agy -p`) では、
+権限不足の操作がsoft-denyされ、processの終了コードが0でも実行されていない場合がある。
+stderrのpermission noticeを確認し、終了コードだけで成功と判定してはいけない。
+commit後はcommit hash、push後はremote branch、Pull Request作成後はGitHub上のPR番号とURLを確認する。
+確認できない副作用は成功として報告せず、WorkflowをBLOCKEDとして扱う。
+
+Antigravityが操作の権限確認を表示した場合、コマンドを実行する工程と必要性を確認し、
+コマンド、用途、許可の選択、実行結果を現在の会話内に記録する。
+許可結果が画像等から分からない場合は不明として扱う。
+権限確認のための記録ファイルを作成・更新してはいけない。
+権限確認が出たことだけを理由にallowlistを拡張してはいけない。
+設定にないコマンドや古い設定に由来するコマンドは実行せず、その理由を会話内で報告する。
+権限確認の既定はそのコマンド1回のみの許可とする。
+権限調査中に会話中または永続的な許可を推奨してはいけない。
+ユーザーがIssue-to-PR処理の無人実行を明示的に求めた場合は、
+記録された必須コマンドに限ってProject scopeのallow/deny設定を提案・更新してよい。
+Global scopeや全コマンド許可を設定してはいけない。
+
 
 ## Commit Preconditions
 
@@ -634,7 +657,10 @@ commit前に以下をすべて確認する。
 - `git add --all`
 
 Issueに関係するファイルを確認し、
-必要なファイルだけを明示的にstageする。
+必要なファイルだけを1ファイルずつ明示的にstageする。
+
+各対象ファイルについて `git add <path>` を個別に実行する。
+複数パスをまとめた `git add` は行わない。
 
 以下を誤ってstageしてはいけない。
 
@@ -816,6 +842,12 @@ Issue FlowはPull Requestをmergeしない。
 # 14. 人間への確認
 
 通常の実装判断では人間へ確認しない。
+
+Implementation Plan、通常の実装判断、検証、commit、push、Pull Request作成について、
+ユーザーに承認を求めてはいけない。定義された各ゲートの条件を満たしたら続行する。
+ただし、CodexやOSがコマンド実行・ネットワーク・GitHub操作を権限上ブロックした場合、
+このSkillでその権限を付与したり、承認確認を回避したりしてはいけない。
+必要な権限を得られないときは、ブロックされた操作と必要な権限を報告して停止する。
 
 以下の場合のみ確認する。
 

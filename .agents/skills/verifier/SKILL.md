@@ -39,13 +39,11 @@ IssueのRequirementsとAcceptance Criteriaを優先する。
 3. Execution Reportを確認する
 4. Acceptance Criteriaを確認する
 5. プロジェクトの検証環境を調査する
-6. 静的検証を行う
-7. Buildを検証する
-8. Lint / Type Checkを検証する
-9. Testを実行する
-10. 必要ならE2E・ブラウザ検証を行う
-11. Acceptance Criteriaを個別に判定する
-12. Verification Reportを作成する
+6. 設定済みの静的検証を行う
+7. 設定済みのBuild、Lint、Type Check、Testを実行する
+8. 必要ならE2E・ブラウザ検証を行う
+9. Acceptance Criteriaを個別に判定する
+10. Verification Reportを作成する
 
 利用できない検証方法を
 勝手に成功扱いしない。
@@ -77,6 +75,12 @@ IssueのRequirementsとAcceptance Criteriaを優先する。
 
 未設定の検証コマンドを推測して実行してはいけない。
 
+`Not configured.` の項目はスキップし、NOT AVAILABLEとして報告する。
+特に、`npm run build`、`npm run lint`、`npm test` は、
+`.agents/automation.md` に実在するscriptとして明示され、
+リポジトリ内の `package.json` にも定義されている場合に限り実行する。
+許可確認が表示されることを理由に、未設定コマンドを実行してはいけない。
+
 
 ### Development Server
 
@@ -106,8 +110,8 @@ URLが定義されている場合、
 ブラウザ検証が必要な場合は以下の順序で処理する。
 
 1. `.agents/automation.md` のStart Commandを実行する
-2. 設定されたURLが到達可能になるまで待機する
-3. 設定されたURLに対してブラウザ検証を行う
+2. ブラウザで設定されたURLへ遷移し、ページ応答をDevelopment Serverの起動確認として使う
+3. 必要に応じてブラウザのページ読込待機を行い、設定URLで検証する
 4. 必要なすべてのブラウザ検証を完了する
 5. Verifier自身が起動したDevelopment Serverを停止する
 
@@ -116,6 +120,11 @@ URLが定義されている場合、
 
 Verifierが起動していない既存プロセスを
 勝手に停止してはいけない。
+
+ブラウザ検証前の到達確認だけを目的として、
+`Test-NetConnection`、`Invoke-WebRequest`、`curl`、`netstat`等による
+別のShell/PowerShellポート確認を実行してはいけない。
+設定URLへのブラウザ遷移で起動状態を確認する。
 
 
 ### Verification Commands

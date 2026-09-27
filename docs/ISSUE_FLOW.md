@@ -209,15 +209,13 @@ Reviewerの修正後は、
 開発サーバーの起動方法およびURLは
 `.agents/automation.md` をSingle Source of Truthとする。
 
-現在の構成:
+Start CommandおよびURLは `.agents/automation.md` の値を使用する。
+現在の構成は `pwsh -File scripts/serve.ps1`、
+`http://127.0.0.1:8080/`。
 
-Start Command:
-
-pwsh -File scripts/serve.ps1
-
-URL:
-
-http://127.0.0.1:8080/
+このリポジトリには `package.json` がないため、npmコマンドを実行しない。
+Build、Lint、Testの正式なコマンドが設定されていない場合は、
+設定済みの静的・ブラウザ検証を行い、未設定項目を未実施として報告する。
 
 検証完了後はIssue Flowが起動した開発サーバーを停止する。
 
