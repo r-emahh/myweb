@@ -654,6 +654,35 @@
       animation-delay: 0.25s;
       --fall-rot: 65deg;
     }
+
+    /* Accessibility: prefers-reduced-motion (Issue #16) */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .particle-canvas {
+        display: none !important;
+      }
+
+      .polyhedron-canvas {
+        opacity: 0.35 !important;
+        transform: translate(-50%, -50%) !important;
+      }
+
+      body.konami-active .card,
+      body.konami-active .site-header,
+      body.konami-active .feature-card,
+      body.konami-active .site-footer,
+      body.konami-active .back-to-top-btn {
+        animation: none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -825,7 +854,8 @@
       window.addEventListener('scroll', handleScroll, { passive: true });
       if (backToTopBtn) {
         backToTopBtn.addEventListener('click', function () {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          var isReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          window.scrollTo({ top: 0, behavior: isReduced ? 'auto' : 'smooth' });
         });
       }
 
@@ -834,9 +864,10 @@
       if (scrollToBottomBtn) {
         scrollToBottomBtn.addEventListener('click', function (e) {
           e.preventDefault();
+          var isReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
           window.scrollTo({
             top: document.documentElement.scrollHeight,
-            behavior: 'smooth'
+            behavior: isReduced ? 'auto' : 'smooth'
           });
         });
       }
