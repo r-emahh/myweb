@@ -98,6 +98,9 @@
       height: 100vh;
       pointer-events: none;
       z-index: 0;
+      contain: strict;
+      transform: translateZ(0);
+      will-change: transform;
     }
 
     /* 3D Geometric Polyhedron (Issue #14) */
@@ -105,13 +108,15 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) translateZ(0);
       width: 560px;
       height: 560px;
       pointer-events: none;
       z-index: -1;
       opacity: 0.85;
       transition: opacity 0.3s ease;
+      contain: strict;
+      will-change: transform;
     }
 
     [data-theme="light"] .polyhedron-canvas {
@@ -1021,10 +1026,42 @@
             ctx.fill();
           }
 
-          requestAnimationFrame(animate);
+          if (isRunning && !document.hidden && !prefersReducedMotion) {
+            animId = requestAnimationFrame(animate);
+          } else {
+            isRunning = false;
+          }
         }
 
-        requestAnimationFrame(animate);
+        var animId = null;
+        var isRunning = false;
+
+        function start() {
+          if (!isRunning && !document.hidden && !prefersReducedMotion) {
+            isRunning = true;
+            animId = requestAnimationFrame(animate);
+          }
+        }
+
+        function stop() {
+          if (isRunning) {
+            isRunning = false;
+            if (animId) {
+              cancelAnimationFrame(animId);
+              animId = null;
+            }
+          }
+        }
+
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden) {
+            stop();
+          } else {
+            start();
+          }
+        });
+
+        start();
       })();
 
       /* ゆっくりと自転・変形する3D幾何学体 (Issue #14) */
@@ -1228,12 +1265,57 @@
             ctx.fill();
           }
 
-          if (!prefersReducedMotion) {
-            requestAnimationFrame(render);
+          if (isRunning && isIntersecting && !document.hidden && !prefersReducedMotion) {
+            animId = requestAnimationFrame(render);
+          } else {
+            isRunning = false;
           }
         }
 
-        requestAnimationFrame(render);
+        var animId = null;
+        var isRunning = false;
+        var isIntersecting = true;
+
+        function start() {
+          if (!isRunning && isIntersecting && !document.hidden && !prefersReducedMotion) {
+            isRunning = true;
+            animId = requestAnimationFrame(render);
+          }
+        }
+
+        function stop() {
+          if (isRunning) {
+            isRunning = false;
+            if (animId) {
+              cancelAnimationFrame(animId);
+              animId = null;
+            }
+          }
+        }
+
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden) {
+            stop();
+          } else {
+            start();
+          }
+        });
+
+        if ('IntersectionObserver' in window) {
+          var observer = new IntersectionObserver(function (entries) {
+            for (var oi = 0; oi < entries.length; oi++) {
+              isIntersecting = entries[oi].isIntersecting;
+              if (isIntersecting) {
+                start();
+              } else {
+                stop();
+              }
+            }
+          }, { threshold: 0.05 });
+          observer.observe(canvas);
+        }
+
+        start();
       })();
     })();
   </script>
