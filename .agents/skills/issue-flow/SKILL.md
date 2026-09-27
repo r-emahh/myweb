@@ -620,6 +620,16 @@ stderrのpermission noticeを確認し、終了コードだけで成功と判定
 commit後はcommit hash、push後はremote branch、Pull Request作成後はGitHub上のPR番号とURLを確認する。
 確認できない副作用は成功として報告せず、WorkflowをBLOCKEDとして扱う。
 
+Antigravityが操作の権限確認を表示した場合、コマンドを実行する工程と必要性を確認し、
+`docs/ANTIGRAVITY_PERMISSION_LOG.md` に正確なコマンド、用途、確認の結果、実行結果を記録する。
+結果が不明な場合は不明と記録する。権限確認が出たことだけを理由にallowlistを拡張してはいけない。
+設定にないコマンドや古い設定に由来するコマンドは実行せず、その理由とともに記録する。
+権限確認の既定はそのコマンド1回のみの許可とする。
+権限調査中に会話中または永続的な許可を推奨してはいけない。
+ユーザーがIssue-to-PR処理の無人実行を明示的に求めた場合は、
+記録された必須コマンドに限ってProject scopeのallow/deny設定を提案・更新してよい。
+Global scopeや全コマンド許可を設定してはいけない。
+
 
 ## Commit Preconditions
 
@@ -645,7 +655,10 @@ commit前に以下をすべて確認する。
 - `git add --all`
 
 Issueに関係するファイルを確認し、
-必要なファイルだけを明示的にstageする。
+必要なファイルだけを1ファイルずつ明示的にstageする。
+
+各対象ファイルについて `git add <path>` を個別に実行する。
+複数パスをまとめた `git add` は行わない。
 
 以下を誤ってstageしてはいけない。
 
