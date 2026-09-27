@@ -4,7 +4,7 @@
 
 Base Branch:
 
-`main`
+`master`
 
 Remote:
 
@@ -14,25 +14,25 @@ Remote:
 
 Start Command:
 
-`npm run dev`
+`pwsh -File scripts/serve.ps1`
 
 URL:
 
-`http://127.0.0.1:5173/`
+`http://127.0.0.1:8080/`
 
 ## Verification
 
 Build:
 
-`npm run build`
+`Not configured.`
 
 Lint:
 
-`npm run lint`
+`Not configured.`
 
 Test:
 
-`npm test`
+`Not configured.`
 
 Browser:
 

@@ -53,6 +53,10 @@
       --toggle-hover: rgba(15, 23, 42, 0.1);
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -136,7 +140,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      z-index: 10;
+      z-index: 100;
       background: var(--header-bg);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -148,6 +152,41 @@
       transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    /* Brand Logo (Issue #31) */
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      cursor: pointer;
+      outline: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .brand-logo:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    .brand-logo:focus-visible {
+      outline: 2px solid #6366f1;
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    .logo-img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+    }
+
     .brand-title {
       font-weight: 700;
       font-size: 1.15rem;
@@ -155,12 +194,160 @@
       background: var(--accent-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      user-select: none;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    /* Navigation Menu (Issue #31) */
+    .site-nav {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-list {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: 1.25rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-link {
+      position: relative;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      cursor: pointer;
+      padding: 0.35rem 0.2rem;
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-link:hover,
+    .nav-link:focus-visible {
+      color: var(--text-main);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--accent-gradient);
+      border-radius: 2px;
+      transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-link:hover::after,
+    .nav-link:focus-visible::after {
+      width: 100%;
+    }
+
+    .nav-link:focus-visible {
+      outline: 2px solid #6366f1;
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+
+    /* Header CTA Button (Issue #31) */
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.45rem 1.15rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #ffffff !important;
+      background: var(--accent-gradient);
+      border-radius: 9999px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .header-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(99, 102, 241, 0.45);
+      filter: brightness(1.08);
+    }
+
+    .header-cta:active {
+      transform: translateY(0);
+    }
+
+    .header-cta:focus-visible {
+      outline: 2px solid #6366f1;
+      outline-offset: 2px;
+    }
+
+    .mobile-cta {
+      display: none;
+    }
+
+    /* Hamburger Button (Issue #31) */
+    .hamburger-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 36px;
+      height: 36px;
+      background: var(--toggle-bg);
+      border: 1px solid var(--toggle-border);
+      border-radius: 8px;
+      padding: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .hamburger-btn:hover {
+      background: var(--toggle-hover);
+    }
+
+    .hamburger-btn:focus-visible {
+      outline: 2px solid #6366f1;
+      outline-offset: 2px;
+    }
+
+    .hamburger-line {
+      width: 100%;
+      height: 2px;
+      background-color: var(--text-main);
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .hamburger-btn[aria-expanded="true"] .hamburger-line:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .hamburger-btn[aria-expanded="true"] .hamburger-line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger-btn[aria-expanded="true"] .hamburger-line:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.65rem;
     }
 
     /* Clock Display (Issue #22) */
@@ -406,6 +593,125 @@
       color: var(--text-muted);
     }
 
+    /* Corporate Content Sections (Issue #31) */
+    .content-section {
+      scroll-margin-top: 5.5rem;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .section-title {
+      font-size: 1.85rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      text-align: center;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .company-card,
+    .contact-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2.25rem 2rem;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      width: 100%;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .company-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .detail-row {
+      display: flex;
+      align-items: baseline;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 0.85rem;
+      gap: 1.5rem;
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .detail-row dt {
+      width: 110px;
+      font-weight: 600;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      font-size: 0.92rem;
+    }
+
+    .detail-row dd {
+      color: var(--text-main);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      max-width: 580px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      text-align: left;
+    }
+
+    .form-group label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .form-input,
+    .form-textarea {
+      background: var(--toggle-bg);
+      border: 1px solid var(--toggle-border);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+    }
+
+    .contact-submit-btn {
+      margin-top: 0.5rem;
+      align-self: flex-start;
+      padding: 0.75rem 2rem;
+    }
+
     .site-footer {
       text-align: center;
       padding: 3rem 0 1rem;
@@ -480,6 +786,78 @@
       transform: translateY(-2px);
     }
 
+    /* Responsive Header & Navigation (Issue #31) */
+    @media (max-width: 860px) {
+      .hamburger-btn {
+        display: flex;
+      }
+
+      .site-nav {
+        position: fixed;
+        top: 56px;
+        left: 0;
+        width: 100%;
+        background: var(--header-bg);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--card-border);
+        box-shadow: var(--card-shadow);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1.25rem 1.5rem 1.5rem;
+        transform: translateY(-140%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+        z-index: 99;
+      }
+
+      .site-nav.is-open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .nav-list {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+        width: 100%;
+      }
+
+      .nav-link {
+        display: block;
+        padding: 0.55rem 0.25rem;
+        font-size: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      }
+
+      [data-theme="light"] .nav-link {
+        border-bottom-color: rgba(15, 23, 42, 0.04);
+      }
+
+      .header-right > .header-cta {
+        display: none;
+      }
+
+      .mobile-cta {
+        display: block;
+        margin-top: 0.75rem;
+        width: 100%;
+      }
+
+      .mobile-cta .header-cta {
+        display: flex;
+        width: 100%;
+        padding: 0.65rem 1.25rem;
+        font-size: 0.95rem;
+      }
+
+      .time-display {
+        display: none;
+      }
+    }
+
     @media (max-width: 640px) {
       body {
         padding: 4.5rem 1rem 2rem;
@@ -493,12 +871,11 @@
       .site-header {
         padding: 0.65rem 0.85rem;
       }
-      .header-actions {
-        gap: 0.4rem;
+      .header-right {
+        gap: 0.5rem;
       }
-      .time-display {
-        font-size: 0.75rem;
-        padding: 0.35rem 0.6rem;
+      .header-actions {
+        gap: 0.35rem;
       }
       .theme-toggle-btn {
         padding: 0.35rem 0.65rem;
@@ -520,6 +897,13 @@
       .content-container {
         margin-top: 2rem;
         padding-bottom: 2rem;
+      }
+      .detail-row {
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+      .detail-row dt {
+        width: 100%;
       }
     }
 
@@ -703,17 +1087,44 @@
 </head>
 <body>
   <canvas id="particle-canvas" class="particle-canvas" aria-hidden="true"></canvas>
-  <header class="site-header">
-    <div class="brand-title">myweb</div>
-    <div class="header-actions">
-      <div id="current-time" class="time-display" aria-label="現在時刻">--:--:--</div>
-      <button id="scroll-to-bottom" class="scroll-down-btn" aria-label="ページ最下部へ移動" type="button">
-        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        <span class="btn-text">下部へ</span>
-      </button>
-      <button id="theme-toggle" class="theme-toggle-btn" aria-label="テーマを切り替える" type="button">
-        <span id="theme-icon" class="theme-icon">🌙</span>
-        <span id="theme-text" class="theme-text">Dark</span>
+  <header class="site-header" id="site-header">
+    <div class="header-left">
+      <a href="#" class="brand-logo" id="brand-logo" aria-label="myweb ホーム">
+        <img src="public/logo.svg" alt="myweb" class="logo-img" onerror="this.style.display='none';">
+        <span class="brand-title">myweb</span>
+      </a>
+    </div>
+
+    <div class="header-right">
+      <nav class="site-nav" id="site-nav" aria-label="メインナビゲーション">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="#services" class="nav-link">サービス</a></li>
+          <li class="nav-item"><a href="#company" class="nav-link">会社概要</a></li>
+          <li class="nav-item"><a href="#contact" class="nav-link">問い合わせ</a></li>
+        </ul>
+        <div class="mobile-cta">
+          <a href="#contact" class="btn-cta header-cta mobile-cta-btn">お問い合わせ</a>
+        </div>
+      </nav>
+
+      <a href="#contact" class="btn-cta header-cta" id="header-cta-btn">お問い合わせ</a>
+
+      <div class="header-actions">
+        <div id="current-time" class="time-display" aria-label="現在時刻">--:--:--</div>
+        <button id="scroll-to-bottom" class="scroll-down-btn" aria-label="ページ最下部へ移動" type="button">
+          <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          <span class="btn-text">下部へ</span>
+        </button>
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="テーマを切り替える" type="button">
+          <span id="theme-icon" class="theme-icon">🌙</span>
+          <span id="theme-text" class="theme-text">Dark</span>
+        </button>
+      </div>
+
+      <button id="hamburger-btn" class="hamburger-btn" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav" type="button">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
       </button>
     </div>
   </header>
@@ -730,23 +1141,75 @@
   </main>
 
   <div class="content-container" id="explore">
-    <div class="features-grid">
-      <div class="feature-card">
-        <span class="feature-icon">⚡</span>
-        <h2 class="feature-title">モダンな設計</h2>
-        <p class="feature-desc">Vanilla HTML/CSS/JS で構築され、フレームワーク不要の高速なパフォーマンスを実現します。</p>
+    <section id="services" class="content-section">
+      <h2 class="section-title">サービス</h2>
+      <p class="section-subtitle">最新のWebテクノロジーと洗練されたデザインで、高品質な体験を提供します。</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-icon">⚡</span>
+          <h3 class="feature-title">モダンな設計</h3>
+          <p class="feature-desc">Vanilla HTML/CSS/JS で構築され、フレームワーク不要の高速なパフォーマンスを実現します。</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🎨</span>
+          <h3 class="feature-title">スマートテーマ</h3>
+          <p class="feature-desc">OS設定との自動連動やローカル保存を備えた、シームレスなダーク/ライトモード切り替え。</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">⏱️</span>
+          <h3 class="feature-title">リアルタイム表示</h3>
+          <p class="feature-desc">ヘッダーに配置された秒単位のリアルタイムクロックで、現在の時刻を常時確認できます。</p>
+        </div>
       </div>
-      <div class="feature-card">
-        <span class="feature-icon">🎨</span>
-        <h2 class="feature-title">スマートテーマ</h2>
-        <p class="feature-desc">OS設定との自動連動やローカル保存を備えた、シームレスなダーク/ライトモード切り替え。</p>
+    </section>
+
+    <section id="company" class="content-section">
+      <h2 class="section-title">会社概要</h2>
+      <p class="section-subtitle">洗練された技術と創造力で、Webの未来を切り拓くスタジオです。</p>
+      <div class="company-card">
+        <dl class="company-details">
+          <div class="detail-row">
+            <dt>社名</dt>
+            <dd>myweb株式会社</dd>
+          </div>
+          <div class="detail-row">
+            <dt>設立</dt>
+            <dd>2026年</dd>
+          </div>
+          <div class="detail-row">
+            <dt>事業内容</dt>
+            <dd>Webアプリケーション開発、UI/UXデザイン、パフォーマンス最適化</dd>
+          </div>
+          <div class="detail-row">
+            <dt>所在地</dt>
+            <dd>東京都渋谷区</dd>
+          </div>
+        </dl>
       </div>
-      <div class="feature-card">
-        <span class="feature-icon">⏱️</span>
-        <h2 class="feature-title">リアルタイム表示</h2>
-        <p class="feature-desc">ヘッダーに配置された秒単位のリアルタイムクロックで、現在の時刻を常時確認できます。</p>
+    </section>
+
+    <section id="contact" class="content-section">
+      <h2 class="section-title">お問い合わせ</h2>
+      <p class="section-subtitle">プロジェクトのご相談やご質問など、お気軽にお問い合わせください。</p>
+      <div class="contact-card">
+        <form class="contact-form" id="contact-form" onsubmit="event.preventDefault(); alert('お問い合わせを受け付けました。');">
+          <div class="form-group">
+            <label for="contact-name">お名前</label>
+            <input type="text" id="contact-name" class="form-input" placeholder="山田 太郎" required>
+          </div>
+          <div class="form-group">
+            <label for="contact-email">メールアドレス</label>
+            <input type="email" id="contact-email" class="form-input" placeholder="example@myweb.local" required>
+          </div>
+          <div class="form-group">
+            <label for="contact-message">お問い合わせ内容</label>
+            <textarea id="contact-message" class="form-textarea" rows="4" placeholder="お問い合わせ内容をご記入ください" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary contact-submit-btn">送信する</button>
+        </form>
       </div>
-    </div>
+    </section>
+
     <footer class="site-footer">
       <p>© <span id="current-year">2026</span> myweb. All rights reserved.</p>
       <p class="footer-note">Built with HTML, CSS and JavaScript</p>
@@ -767,6 +1230,82 @@
 
   <script>
     (function () {
+      /* ヘッダー・ナビゲーション・ハンバーガーメニュー制御 (Issue #31) */
+      (function () {
+        var hamburgerBtn = document.getElementById('hamburger-btn');
+        var siteNav = document.getElementById('site-nav');
+        var brandLogo = document.getElementById('brand-logo');
+        var headerCtaBtn = document.getElementById('header-cta-btn');
+        var navLinks = document.querySelectorAll('.nav-link, .mobile-cta-btn');
+
+        function closeMenu() {
+          if (siteNav && siteNav.classList.contains('is-open')) {
+            siteNav.classList.remove('is-open');
+            if (hamburgerBtn) {
+              hamburgerBtn.setAttribute('aria-expanded', 'false');
+              hamburgerBtn.setAttribute('aria-label', 'メニューを開く');
+            }
+          }
+        }
+
+        if (hamburgerBtn && siteNav) {
+          hamburgerBtn.addEventListener('click', function () {
+            var isOpen = siteNav.classList.toggle('is-open');
+            hamburgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            hamburgerBtn.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
+          });
+
+          // メニュー外クリックで閉じる
+          document.addEventListener('click', function (e) {
+            if (siteNav.classList.contains('is-open') &&
+                !siteNav.contains(e.target) &&
+                !hamburgerBtn.contains(e.target)) {
+              closeMenu();
+            }
+          });
+
+          // Escapeキーで閉じる
+          document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && siteNav.classList.contains('is-open')) {
+              closeMenu();
+              hamburgerBtn.focus();
+            }
+          });
+        }
+
+        // ロゴクリック時は最上部へスムーズスクロール
+        if (brandLogo) {
+          brandLogo.addEventListener('click', function (e) {
+            e.preventDefault();
+            closeMenu();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          });
+        }
+
+        // ナビゲーションリンクおよびCTAボタンクリック時の挙動
+        function handleAnchorClick(link) {
+          link.addEventListener('click', function (e) {
+            var href = link.getAttribute('href');
+            closeMenu();
+            if (href === '#' || href === '') {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (href && href.startsWith('#')) {
+              var targetEl = document.querySelector(href);
+              if (targetEl) {
+                e.preventDefault();
+                targetEl.scrollIntoView({ behavior: 'smooth' });
+              }
+            }
+          });
+        }
+
+        navLinks.forEach(handleAnchorClick);
+        if (headerCtaBtn) {
+          handleAnchorClick(headerCtaBtn);
+        }
+      })();
+
       /* 時計表示の更新処理 (Issue #22) */
       function updateClock() {
         var now = new Date();
