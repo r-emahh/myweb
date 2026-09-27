@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - ページが見つかりません | myweb</title>
+  <meta name="description" content="お探しのページは見つかりませんでした。">
+  <script>
+    /* FOUC 防止の初期テーマ設定 */
+    (function () {
+      try {
+        var savedTheme = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var initialTheme = savedTheme ? savedTheme : (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', initialTheme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root,
+    [data-theme="dark"] {
+      --bg: #090d16;
+      --header-bg: rgba(9, 13, 22, 0.75);
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --card-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+      --ambient-glow: rgba(99, 102, 241, 0.15);
+      --toggle-bg: rgba(255, 255, 255, 0.08);
+      --toggle-border: rgba(255, 255, 255, 0.16);
+      --toggle-hover: rgba(255, 255, 255, 0.14);
+      --canvas-bg: rgba(0, 0, 0, 0.25);
+      --canvas-border: rgba(255, 255, 255, 0.15);
+      --canvas-player: #a855f7;
+      --canvas-obstacle: #ec4899;
+      --canvas-ground: rgba(255, 255, 255, 0.2);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --header-bg: rgba(248, 250, 252, 0.8);
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --card-border: rgba(15, 23, 42, 0.08);
+      --card-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.12);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --accent-gradient: linear-gradient(135deg, #4f46e5 0%, #9333ea 50%, #db2777 100%);
+      --ambient-glow: rgba(99, 102, 241, 0.12);
+      --toggle-bg: rgba(15, 23, 42, 0.05);
+      --toggle-border: rgba(15, 23, 42, 0.1);
+      --toggle-hover: rgba(15, 23, 42, 0.1);
+      --canvas-bg: #eef2f6;
+      --canvas-border: rgba(15, 23, 42, 0.12);
+      --canvas-player: #6366f1;
+      --canvas-obstacle: #db2777;
+      --canvas-ground: rgba(15, 23, 42, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-x: hidden;
+      padding: 5.5rem 1.5rem 2rem;
+      position: relative;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--ambient-glow) 0%, rgba(0, 0, 0, 0) 70%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 0.85rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background-color: var(--header-bg);
+      border-bottom: 1px solid var(--card-border);
+      z-index: 100;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+
+    .theme-toggle-btn {
+      background: var(--toggle-bg);
+      border: 1px solid var(--toggle-border);
+      color: var(--text-main);
+      padding: 0.45rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--toggle-hover);
+      transform: translateY(-1px);
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 2.5rem;
+      max-width: 680px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: var(--accent-gradient);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+    }
+
+    p.desc {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.6;
+      max-width: 520px;
+    }
+
+    .game-section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .game-container {
+      width: 100%;
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--canvas-border);
+      background: var(--canvas-bg);
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+      touch-action: manipulation;
+    }
+
+    #game-canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3 / 1;
+      cursor: pointer;
+    }
+
+    .game-stats {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 0 0.5rem;
+    }
+
+    .game-stats span b {
+      color: var(--text-main);
+    }
+
+    .game-instruction {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.6rem;
+      border-radius: 9999px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent-gradient);
+      color: #ffffff;
+      box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+    }
+
+    .btn-secondary {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: var(--toggle-hover);
+      transform: translateY(-2px);
+    }
+
+    .site-footer {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 5rem 1rem 1.5rem;
+      }
+      .card {
+        padding: 1.75rem 1.25rem;
+        gap: 1rem;
+      }
+      h1 {
+        font-size: 1.65rem;
+      }
+      p.desc {
+        font-size: 0.9rem;
+      }
+      .btn {
+        width: 100%;
+      }
+      .button-group {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="brand-title">myweb</a>
+    <button id="theme-toggle" class="theme-toggle-btn" aria-label="テーマを切り替える" type="button">
+      <span id="theme-icon">🌙</span>
+      <span id="theme-text">Dark</span>
+    </button>
+  </header>
+
+  <main class="card">
+    <div class="badge">404 Error</div>
+    <h1>ページが見つかりません</h1>
+    <p class="desc">
+      アクセスしようとしたページは存在しないか、移動した可能性があります。<br>
+      待ち時間に下のミニゲームをお楽しみください！
+    </p>
+
+    <div class="game-section">
+      <div class="game-stats">
+        <span>SCORE: <b id="current-score">0</b></span>
+        <span>HI-SCORE: <b id="high-score">0</b></span>
+      </div>
+
+      <div class="game-container" id="game-container">
+        <canvas id="game-canvas" width="600" height="200" aria-label="障害物避けミニゲーム"></canvas>
+      </div>
+
+      <div class="game-instruction">
+        操作方法: <b>スペースキー</b> / <b>↑キー</b> または <b>画面タップ・クリック</b> でジャンプ
+      </div>
+    </div>
+
+    <div class="button-group">
+      <a href="/" class="btn btn-primary" id="btn-home">トップページへ戻る</a>
+      <button type="button" class="btn btn-secondary" id="btn-restart-game">ゲームをやり直す</button>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="current-year">2026</span> myweb. All rights reserved.</p>
+  </footer>
+
+  <script>
+    (function () {
+      /* テーマ管理 */
+      var themeToggle = document.getElementById('theme-toggle');
+      var themeIcon = document.getElementById('theme-icon');
+      var themeText = document.getElementById('theme-text');
+
+      function updateThemeUI(theme) {
+        if (theme === 'dark') {
+          themeIcon.textContent = '🌙';
+          themeText.textContent = 'Dark';
+          themeToggle.setAttribute('aria-label', 'ライトモードに切り替える');
+        } else {
+          themeIcon.textContent = '☀️';
+          themeText.textContent = 'Light';
+          themeToggle.setAttribute('aria-label', 'ダークモードに切り替える');
+        }
+      }
+
+      var currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      updateThemeUI(currentTheme);
+
+      if (themeToggle) {
+        themeToggle.addEventListener('click', function () {
+          var active = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', active);
+          try {
+            localStorage.setItem('theme', active);
+          } catch (e) {}
+          updateThemeUI(active);
+        });
+      }
+
+      /* フッター年更新 */
+      var yearEl = document.getElementById('current-year');
+      if (yearEl) {
+        yearEl.textContent = String(new Date().getFullYear());
+      }
+
+      /* ============================================================
+         404 ミニゲーム: ランナージャンプゲーム
+         ============================================================ */
+      var canvas = document.getElementById('game-canvas');
+      var ctx = canvas.getContext('2d');
+      if (!ctx.roundRect) {
+        ctx.roundRect = function (x, y, w, h, r) {
+          this.rect(x, y, w, h);
+        };
+      }
+      var scoreEl = document.getElementById('current-score');
+      var highScoreEl = document.getElementById('high-score');
+      var restartBtn = document.getElementById('btn-restart-game');
+
+      var HIGH_SCORE_KEY = 'myweb_404_highscore';
+      var highScore = 0;
+      try {
+        highScore = parseInt(localStorage.getItem(HIGH_SCORE_KEY), 10) || 0;
+      } catch (e) {}
+      if (highScoreEl) highScoreEl.textContent = String(highScore);
+
+      var WIDTH = 600;
+      var HEIGHT = 200;
+      var GROUND_Y = 165;
+      var GRAVITY = 0.65;
+      var JUMP_FORCE = -11.5;
+
+      var gameState = 'ready'; // 'ready' | 'playing' | 'gameover'
+      var score = 0;
+      var frameCount = 0;
+      var speed = 5;
+
+      var player = {
+        x: 50,
+        y: GROUND_Y - 32,
+        width: 28,
+        height: 32,
+        vy: 0,
+        isGrounded: true
+      };
+
+      var obstacles = [];
+      var nextObstacleDistance = 100;
+
+      function resetGame() {
+        score = 0;
+        speed = 5;
+        frameCount = 0;
+        player.y = GROUND_Y - player.height;
+        player.vy = 0;
+        player.isGrounded = true;
+        obstacles = [];
+        nextObstacleDistance = 90;
+        if (scoreEl) scoreEl.textContent = '0';
+        gameState = 'playing';
+      }
+
+      function jump() {
+        if (gameState === 'ready') {
+          resetGame();
+          return;
+        }
+        if (gameState === 'gameover') {
+          resetGame();
+          return;
+        }
+        if (player.isGrounded) {
+          player.vy = JUMP_FORCE;
+          player.isGrounded = false;
+        }
+      }
+
+      // 入力制御
+      window.addEventListener('keydown', function (e) {
+        if (e.code === 'Space' || e.code === 'ArrowUp') {
+          e.preventDefault();
+          jump();
+        }
+      });
+
+      canvas.addEventListener('pointerdown', function (e) {
+        e.preventDefault();
+        jump();
+      });
+
+      if (restartBtn) {
+        restartBtn.addEventListener('click', function () {
+          resetGame();
+        });
+      }
+
+      function spawnObstacle() {
+        var h = Math.floor(Math.random() * 20) + 24; // 高さ24〜44
+        var w = Math.floor(Math.random() * 12) + 18; // 幅18〜30
+        obstacles.push({
+          x: WIDTH,
+          y: GROUND_Y - h,
+          width: w,
+          height: h
+        });
+      }
+
+      function update() {
+        if (gameState !== 'playing') return;
+
+        frameCount++;
+        if (frameCount % 6 === 0) {
+          score++;
+          if (scoreEl) scoreEl.textContent = String(score);
+          if (score > highScore) {
+            highScore = score;
+            if (highScoreEl) highScoreEl.textContent = String(highScore);
+            try {
+              localStorage.setItem(HIGH_SCORE_KEY, String(highScore));
+            } catch (e) {}
+          }
+          // 徐々に速度を上げる
+          if (score % 100 === 0 && speed < 11) {
+            speed += 0.5;
+          }
+        }
+
+        // プレイヤー物理
+        player.vy += GRAVITY;
+        player.y += player.vy;
+        if (player.y >= GROUND_Y - player.height) {
+          player.y = GROUND_Y - player.height;
+          player.vy = 0;
+          player.isGrounded = true;
+        }
+
+        // 障害物移動
+        nextObstacleDistance -= speed;
+        if (nextObstacleDistance <= 0) {
+          spawnObstacle();
+          // 次の間隔 (ランダム: 80〜150フレーム分相当の距離)
+          nextObstacleDistance = Math.floor(Math.random() * 120) + 140;
+        }
+
+        for (var i = obstacles.length - 1; i >= 0; i--) {
+          var ob = obstacles[i];
+          ob.x -= speed;
+
+          // 衝突判定 (AABB)
+          var padding = 4; // 少し当たり判定を甘くして快適に
+          if (
+            player.x + padding < ob.x + ob.width &&
+            player.x + player.width - padding > ob.x &&
+            player.y + padding < ob.y + ob.height &&
+            player.y + player.height > ob.y
+          ) {
+            gameState = 'gameover';
+          }
+
+          // 画面外削除
+          if (ob.x + ob.width < -10) {
+            obstacles.splice(i, 1);
+          }
+        }
+      }
+
+      function draw() {
+        var styles = getComputedStyle(document.documentElement);
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        var playerColor = styles.getPropertyValue('--canvas-player').trim() || '#a855f7';
+        var obstacleColor = styles.getPropertyValue('--canvas-obstacle').trim() || '#ec4899';
+        var groundColor = styles.getPropertyValue('--canvas-ground').trim() || 'rgba(255,255,255,0.2)';
+        var textColor = styles.getPropertyValue('--text-main').trim() || '#f3f4f6';
+        var textMuted = styles.getPropertyValue('--text-muted').trim() || '#9ca3af';
+
+        ctx.clearRect(0, 0, WIDTH, HEIGHT);
+
+        // 地面
+        ctx.strokeStyle = groundColor;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(0, GROUND_Y);
+        ctx.lineTo(WIDTH, GROUND_Y);
+        ctx.stroke();
+
+        // 走るエフェクトの破線
+        ctx.strokeStyle = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)';
+        ctx.lineWidth = 1;
+        var dashOffset = (frameCount * speed) % 30;
+        ctx.beginPath();
+        ctx.setLineDash([12, 18]);
+        ctx.lineDashOffset = -dashOffset;
+        ctx.moveTo(0, GROUND_Y + 12);
+        ctx.lineTo(WIDTH, GROUND_Y + 12);
+        ctx.stroke();
+        ctx.setLineDash([]); // リセット
+
+        // 障害物
+        ctx.fillStyle = obstacleColor;
+        for (var i = 0; i < obstacles.length; i++) {
+          var ob = obstacles[i];
+          // 角丸四角形
+          var r = 4;
+          ctx.beginPath();
+          ctx.roundRect(ob.x, ob.y, ob.width, ob.height, [r, r, 0, 0]);
+          ctx.fill();
+
+          // 頂点ハイライト
+          ctx.fillStyle = isDark ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.5)';
+          ctx.fillRect(ob.x + 2, ob.y + 2, ob.width - 4, 3);
+          ctx.fillStyle = obstacleColor;
+        }
+
+        // プレイヤー
+        ctx.fillStyle = playerColor;
+        var pr = 6;
+        ctx.beginPath();
+        ctx.roundRect(player.x, player.y, player.width, player.height, pr);
+        ctx.fill();
+
+        // プレイヤーの顔（ドット目）
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(player.x + 18, player.y + 11, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#0f172a';
+        ctx.beginPath();
+        ctx.arc(player.x + 19, player.y + 11, 1.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 状態ごとのUIオーバーレイ
+        if (gameState === 'ready') {
+          ctx.fillStyle = isDark ? 'rgba(9, 13, 22, 0.65)' : 'rgba(248, 250, 252, 0.75)';
+          ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+          ctx.fillStyle = textColor;
+          ctx.font = 'bold 20px "Plus Jakarta Sans", sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('SPACE または タップでスタート！', WIDTH / 2, HEIGHT / 2 - 6);
+
+          ctx.fillStyle = textMuted;
+          ctx.font = '13px "Plus Jakarta Sans", sans-serif';
+          ctx.fillText('障害物をジャンプで避けてハイスコアを目指そう', WIDTH / 2, HEIGHT / 2 + 20);
+        } else if (gameState === 'gameover') {
+          ctx.fillStyle = isDark ? 'rgba(9, 13, 22, 0.75)' : 'rgba(248, 250, 252, 0.85)';
+          ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+          ctx.fillStyle = '#ef4444';
+          ctx.font = 'bold 24px "Plus Jakarta Sans", sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('GAME OVER', WIDTH / 2, HEIGHT / 2 - 16);
+
+          ctx.fillStyle = textColor;
+          ctx.font = 'bold 15px "Plus Jakarta Sans", sans-serif';
+          ctx.fillText('SCORE: ' + score + '  (BEST: ' + highScore + ')', WIDTH / 2, HEIGHT / 2 + 12);
+
+          ctx.fillStyle = textMuted;
+          ctx.font = '12px "Plus Jakarta Sans", sans-serif';
+          ctx.fillText('SPACEキー または タップでリトライ', WIDTH / 2, HEIGHT / 2 + 34);
+        }
+      }
+
+      function loop() {
+        update();
+        draw();
+        requestAnimationFrame(loop);
+      }
+
+      // 初回描画
+      requestAnimationFrame(loop);
+    })();
+  </script>
+</body>
+</html>
