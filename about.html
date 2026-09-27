@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>企業情報 (About Us) | 株式会社pop - POP制作所</title>
+  <meta name="description" content="株式会社pop（POP制作所）の会社概要、経営理念、代表挨拶、アクセスマップをご紹介します。">
+  <link rel="canonical" href="https://r-emahh.github.io/myweb/about.html">
+  <meta property="og:title" content="企業情報 (About Us) | 株式会社pop - POP制作所">
+  <meta property="og:description" content="株式会社pop（POP制作所）の会社概要、経営理念、代表挨拶、アクセスマップをご紹介します。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://r-emahh.github.io/myweb/about.html">
+  <script>
+    (function () {
+      try {
+        var savedTheme = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var initialTheme = savedTheme ? savedTheme : (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', initialTheme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='2' y1='2' x2='30' y2='30' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='50%25' stop-color='%23a855f7'/%3E%3Cstop offset='100%25' stop-color='%23ec4899'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='2' y='2' width='28' height='28' rx='8' fill='url(%23g)'/%3E%3Cpath d='M10 8h7a5 5 0 0 1 5 5c0 2.76-2.24 5-5 5h-4v6h-3V8zm3 3v4h4a2 2 0 1 0 0-4h-4z' fill='%23ffffff'/%3E%3Ccircle cx='23' cy='23' r='2.2' fill='%23ffffff' opacity='0.9'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="public/css/common.css">
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="header-left">
+      <a href="index.html" class="brand-logo" id="brand-logo" aria-label="POP制作所 ホーム">
+        <svg class="logo-img" viewBox="0 0 32 32" width="26" height="26" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="pop-logo-gradient" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#6366f1" />
+              <stop offset="50%" stop-color="#a855f7" />
+              <stop offset="100%" stop-color="#ec4899" />
+            </linearGradient>
+          </defs>
+          <rect x="2" y="2" width="28" height="28" rx="8" fill="url(#pop-logo-gradient)" />
+          <path d="M10 8h7a5 5 0 0 1 5 5c0 2.76-2.24 5-5 5h-4v6h-3V8zm3 3v4h4a2 2 0 1 0 0-4h-4z" fill="#ffffff" />
+          <circle cx="23" cy="23" r="2.2" fill="#ffffff" opacity="0.9" />
+        </svg>
+        <span class="brand-title">POP制作所</span>
+      </a>
+    </div>
+
+    <div class="header-right">
+      <nav class="site-nav" id="site-nav" aria-label="メインナビゲーション">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+          <li class="nav-item"><a href="about.html" class="nav-link active">About</a></li>
+          <li class="nav-item"><a href="news.html" class="nav-link">News</a></li>
+          <li class="nav-item"><a href="recruit.html" class="nav-link">Recruit</a></li>
+        </ul>
+        <div class="mobile-cta">
+          <a href="contact.html" class="btn-cta header-cta mobile-cta-btn">お問い合わせ</a>
+        </div>
+      </nav>
+
+      <a href="contact.html" class="btn-cta header-cta" id="header-cta-btn">お問い合わせ</a>
+
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="テーマを切り替える" type="button">
+          <span id="theme-icon" class="theme-icon">🌙</span>
+          <span id="theme-text" class="theme-text">Dark</span>
+        </button>
+      </div>
+
+      <button id="hamburger-btn" class="hamburger-btn" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav" type="button">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="page-wrapper">
+    <section class="page-hero">
+      <div class="page-badge">About Us</div>
+      <h1 class="page-title">企業情報・私たちについて</h1>
+      <p class="page-subtitle">デザインとテクノロジーの力で、本質的な価値をカタチにし、ビジネスの飛躍を支えます。</p>
+    </section>
+
+    <div class="page-content">
+      <!-- 経営理念 -->
+      <section class="glass-panel" id="philosophy">
+        <h2 class="section-title">経営理念 (Philosophy)</h2>
+        <div class="grid-3">
+          <div class="grid-card">
+            <span class="card-icon">🚀</span>
+            <h3 class="card-title">Vision</h3>
+            <p class="card-text"><strong>心躍るデジタル体験を社会へ。</strong><br>ユーザーと企業が深くつながる体験を創造し、世の中に前向きな驚きと感動を届けます。</p>
+          </div>
+          <div class="grid-card">
+            <span class="card-icon">🎯</span>
+            <h3 class="card-title">Mission</h3>
+            <p class="card-text"><strong>本質的魅力を最大化する。</strong><br>クライアントが持つ独自の価値を発見・言語化・視覚化し、届くべき相手へと正確に届けます。</p>
+          </div>
+          <div class="grid-card">
+            <span class="card-icon">💎</span>
+            <h3 class="card-title">Values</h3>
+            <p class="card-text"><strong>徹底した品質と誠実さ。</strong><br>妥協のないクラフトマンシップ、スピード感ある仮説検証、オープンで透明な対話を大切にします。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 代表挨拶 -->
+      <section class="glass-panel" id="message">
+        <h2 class="section-title">代表挨拶 (Message)</h2>
+        <div class="grid-2" style="align-items: center;">
+          <div>
+            <div style="width: 100%; aspect-ratio: 4/3; background: var(--toggle-bg); border: 1px solid var(--card-border); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; color: var(--text-muted);">
+              <span style="font-size: 3.5rem;">👨‍💼</span>
+              <span style="font-weight: 600; font-size: 0.95rem;">代表取締役 / クリエイティブディレクター</span>
+            </div>
+          </div>
+          <div>
+            <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.4;">「Webサイトは、企業の思想と未来を語る最も力強い対話の場です。」</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1rem; line-height: 1.8;">
+              急速にデジタル化が進む現代において、単に見栄えが良いだけのWebサイトでは差別化が難しくなっています。私たちが大切にしているのは、「なぜこの企業が存在するのか」「誰にどんな価値を届けるのか」という本質的な問いです。
+            </p>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.8;">
+              POP制作所は、企画・デザイン・技術実装のすべてにおいて妥協せず、クライアントのビジネスに確かな成果をもたらすパートナーであり続けます。
+            </p>
+            <p style="font-weight: 700; font-size: 1.05rem;">代表取締役 ポップ 太郎</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 会社概要 -->
+      <section class="glass-panel" id="overview">
+        <h2 class="section-title">会社概要 (Overview)</h2>
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--card-border);">
+              <th style="padding: 1rem 0; width: 28%; color: var(--text-muted); font-weight: 600;">会社名</th>
+              <td style="padding: 1rem 0; font-weight: 600;">株式会社pop (英文表記: pop Inc. / 屋号: POP制作所)</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--card-border);">
+              <th style="padding: 1rem 0; color: var(--text-muted); font-weight: 600;">設立</th>
+              <td style="padding: 1rem 0;">2026年9月</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--card-border);">
+              <th style="padding: 1rem 0; color: var(--text-muted); font-weight: 600;">代表者</th>
+              <td style="padding: 1rem 0;">代表取締役 ポップ 太郎</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--card-border);">
+              <th style="padding: 1rem 0; color: var(--text-muted); font-weight: 600;">所在地</th>
+              <td style="padding: 1rem 0;">〒150-0001 東京都渋谷区神宮前 4-2-12 POP Creative Tower 6F</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--card-border);">
+              <th style="padding: 1rem 0; color: var(--text-muted); font-weight: 600;">事業内容</th>
+              <td style="padding: 1rem 0; line-height: 1.8;">
+                1. コーポレートサイト・サービスサイトの企画・制作・UI/UXデザイン<br>
+                2. Webアプリケーション・デジタルプロダクトのフロントエンド開発<br>
+                3. ブランドアイデンティティ（ロゴ・グラフィック）の策定・運用支援<br>
+                4. デジタルマーケティング・SEO分析および継続的改善コンサルティング
+              </td>
+            </tr>
+            <tr>
+              <th style="padding: 1rem 0; color: var(--text-muted); font-weight: 600;">主要取引銀行</th>
+              <td style="padding: 1rem 0;">三井住友銀行、三菱UFJ銀行</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- アクセスマップ -->
+      <section class="glass-panel" id="access">
+        <h2 class="section-title">アクセスマップ (Access)</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+          東京メトロ各線「表参道駅」A2出口より徒歩3分 / JR山手線「原宿駅」東口より徒歩8分
+        </p>
+        <div style="width: 100%; height: 320px; background: var(--toggle-bg); border: 1px solid var(--card-border); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.75rem; color: var(--text-muted);">
+          <span style="font-size: 3rem;">🗺️</span>
+          <p style="font-weight: 700; color: var(--text-main); font-size: 1.1rem;">POP制作所 本社オフィス</p>
+          <p style="font-size: 0.9rem;">東京都渋谷区神宮前 4-2-12 POP Creative Tower 6F</p>
+          <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="margin-top: 0.5rem; text-decoration: none;">Google マップで確認する</a>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <div style="text-align: center; margin-top: 3rem;">
+        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">お気軽にお問い合わせください</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">制作のご相談・お見積もり・協業のご提案など、専任ディレクターが丁寧にご対応します。</p>
+        <a href="contact.html" class="btn-cta" style="font-size: 1rem; padding: 0.75rem 2rem;">お問い合わせフォームへ</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <ul class="footer-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="recruit.html">Recruit</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <p>© <span id="current-year">2026</span> 株式会社pop (POP制作所). All rights reserved.</p>
+  </footer>
+
+  <script src="public/js/common.js"></script>
+</body>
+</html>

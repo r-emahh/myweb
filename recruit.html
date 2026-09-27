@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>採用情報 (Recruit) | 株式会社pop - POP制作所</title>
+  <meta name="description" content="株式会社pop（POP制作所）の採用情報。募集要項、カルチャー・働く環境、社員インタビューをご紹介します。">
+  <link rel="canonical" href="https://r-emahh.github.io/myweb/recruit.html">
+  <meta property="og:title" content="採用情報 (Recruit) | 株式会社pop - POP制作所">
+  <meta property="og:description" content="株式会社pop（POP制作所）の採用情報。募集要項、カルチャー・働く環境、社員インタビューをご紹介します。">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://r-emahh.github.io/myweb/recruit.html">
+  <script>
+    (function () {
+      try {
+        var savedTheme = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var initialTheme = savedTheme ? savedTheme : (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', initialTheme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='2' y1='2' x2='30' y2='30' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0%25' stop-color='%236366f1'/%3E%3Cstop offset='50%25' stop-color='%23a855f7'/%3E%3Cstop offset='100%25' stop-color='%23ec4899'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='2' y='2' width='28' height='28' rx='8' fill='url(%23g)'/%3E%3Cpath d='M10 8h7a5 5 0 0 1 5 5c0 2.76-2.24 5-5 5h-4v6h-3V8zm3 3v4h4a2 2 0 1 0 0-4h-4z' fill='%23ffffff'/%3E%3Ccircle cx='23' cy='23' r='2.2' fill='%23ffffff' opacity='0.9'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="public/css/common.css">
+  <style>
+    .job-card {
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .job-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .job-badge {
+      font-size: 0.78rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--accent-primary);
+      font-weight: 600;
+    }
+    .job-detail-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+    .job-detail-table th {
+      width: 25%;
+      padding: 0.6rem 0;
+      color: var(--text-muted);
+      text-align: left;
+      vertical-align: top;
+    }
+    .job-detail-table td {
+      padding: 0.6rem 0;
+      line-height: 1.6;
+    }
+    @media (max-width: 640px) {
+      .job-detail-table th,
+      .job-detail-table td {
+        display: block;
+        width: 100%;
+      }
+      .job-detail-table th {
+        padding-bottom: 0.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <div class="header-left">
+      <a href="index.html" class="brand-logo" id="brand-logo" aria-label="POP制作所 ホーム">
+        <svg class="logo-img" viewBox="0 0 32 32" width="26" height="26" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="pop-logo-gradient" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#6366f1" />
+              <stop offset="50%" stop-color="#a855f7" />
+              <stop offset="100%" stop-color="#ec4899" />
+            </linearGradient>
+          </defs>
+          <rect x="2" y="2" width="28" height="28" rx="8" fill="url(#pop-logo-gradient)" />
+          <path d="M10 8h7a5 5 0 0 1 5 5c0 2.76-2.24 5-5 5h-4v6h-3V8zm3 3v4h4a2 2 0 1 0 0-4h-4z" fill="#ffffff" />
+          <circle cx="23" cy="23" r="2.2" fill="#ffffff" opacity="0.9" />
+        </svg>
+        <span class="brand-title">POP制作所</span>
+      </a>
+    </div>
+
+    <div class="header-right">
+      <nav class="site-nav" id="site-nav" aria-label="メインナビゲーション">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="news.html" class="nav-link">News</a></li>
+          <li class="nav-item"><a href="recruit.html" class="nav-link active">Recruit</a></li>
+        </ul>
+        <div class="mobile-cta">
+          <a href="contact.html" class="btn-cta header-cta mobile-cta-btn">お問い合わせ</a>
+        </div>
+      </nav>
+
+      <a href="contact.html" class="btn-cta header-cta" id="header-cta-btn">お問い合わせ</a>
+
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="テーマを切り替える" type="button">
+          <span id="theme-icon" class="theme-icon">🌙</span>
+          <span id="theme-text" class="theme-text">Dark</span>
+        </button>
+      </div>
+
+      <button id="hamburger-btn" class="hamburger-btn" aria-label="メニューを開く" aria-expanded="false" aria-controls="site-nav" type="button">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="page-wrapper">
+    <section class="page-hero">
+      <div class="page-badge">Careers & Culture</div>
+      <h1 class="page-title">採用情報・カルチャー</h1>
+      <p class="page-subtitle">デザインとエンジニアリングを愛するプロフェッショナルへ。あなたのクリエイティビティを最大限に解放できるチームです。</p>
+    </section>
+
+    <div class="page-content">
+      <!-- カルチャー・働く環境 -->
+      <section class="glass-panel" id="culture">
+        <h2 class="section-title">働く環境とカルチャー (Culture & Environment)</h2>
+        <div class="grid-3">
+          <div class="grid-card">
+            <span class="card-icon">🏠</span>
+            <h3 class="card-title">フルリモート & フレックス</h3>
+            <p class="card-text">居住地を問わず全国から参画可能。コアタイムなしのフルフレックス制を採用し、成果と裁量を重視した働き方を推奨しています。</p>
+          </div>
+          <div class="grid-card">
+            <span class="card-icon">💻</span>
+            <h3 class="card-title">最新スペック環境支給</h3>
+            <p class="card-text">希望スペックのMacBook Proや4K外部ディスプレイ、Figma・Adobe Creative Cloud・各種AIツールの有料ライセンスを全額支給します。</p>
+          </div>
+          <div class="grid-card">
+            <span class="card-icon">📚</span>
+            <h3 class="card-title">自己研鑽・学習サポート</h3>
+            <p class="card-text">技術書・デザイン書の購入費全額補助、有料セミナーやデザインカンファレンスへの参加費支援など、成長への投資を惜しみません。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 社員インタビュー -->
+      <section class="glass-panel" id="interviews">
+        <h2 class="section-title">メンバーインタビュー (Interviews)</h2>
+        <div class="grid-2">
+          <div class="grid-card">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <span style="font-size: 2.5rem; background: var(--toggle-bg); padding: 0.5rem; border-radius: 50%;">👩‍🎨</span>
+              <div>
+                <h3 style="font-size: 1.15rem; font-weight: 700;">佐藤 絵里香</h3>
+                <p style="font-size: 0.82rem; color: var(--text-muted);">Lead UI/UX Designer / 2026年入社</p>
+              </div>
+            </div>
+            <h4 style="font-weight: 700; margin-bottom: 0.75rem; color: var(--accent-primary); line-height: 1.4;">「妥協せず、細部の1pxまで愛着を持てるものづくり。」</h4>
+            <p class="card-text">
+              「POP制作所では、ただ要件通りに作るのではなく『なぜそのデザインなのか』をエンジニアやクライアントと深く対話しながら形にできます。自律的に挑戦できる裁量の大きさが何よりの魅力です。」
+            </p>
+          </div>
+
+          <div class="grid-card">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <span style="font-size: 2.5rem; background: var(--toggle-bg); padding: 0.5rem; border-radius: 50%;">👨‍💻</span>
+              <div>
+                <h3 style="font-size: 1.15rem; font-weight: 700;">鈴木 健吾</h3>
+                <p style="font-size: 0.82rem; color: var(--text-muted);">Frontend Engineer / 2026年入社</p>
+              </div>
+            </div>
+            <h4 style="font-weight: 700; margin-bottom: 0.75rem; color: var(--accent-primary); line-height: 1.4;">「スピード感と圧倒的なパフォーマンスの両立。」</h4>
+            <p class="card-text">
+              「モダンなJAMstack構成やWebGL演出など、新しい技術に積極的にチャレンジできる土壌があります。デザイナーとの距離が非常に近く、インタラクションの細かなニュアンスも阿吽の呼吸で具現化できます。」
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 募集要項 -->
+      <section class="glass-panel" id="positions">
+        <h2 class="section-title">募集要項 (Open Positions)</h2>
+
+        <!-- ポジション 1 -->
+        <div class="job-card">
+          <div class="job-header">
+            <h3 class="job-title">UI/UX デザイナー</h3>
+            <span class="job-badge">正社員 / 業務委託</span>
+          </div>
+          <table class="job-detail-table">
+            <tbody>
+              <tr>
+                <th>業務内容</th>
+                <td>コーポレートサイト、サービスサイト、WebアプリケーションのUI/UX設計、プロトタイピング、デザインシステムの構築。</td>
+              </tr>
+              <tr>
+                <th>必須スキル</th>
+                <td>Figmaを用いた実務UIデザイン経験（2年以上）、デザイン原則やタイポグラフィへの深い理解。</td>
+              </tr>
+              <tr>
+                <th>歓迎スキル</th>
+                <td>HTML/CSSの基礎知識、デザインシステムの策定運用経験、アートディレクション経験。</td>
+              </tr>
+              <tr>
+                <th>勤務地</th>
+                <td>フルリモート（国内居住） / 表参道オフィス</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ポジション 2 -->
+        <div class="job-card">
+          <div class="job-header">
+            <h3 class="job-title">フロントエンドエンジニア</h3>
+            <span class="job-badge">正社員 / 業務委託</span>
+          </div>
+          <table class="job-detail-table">
+            <tbody>
+              <tr>
+                <th>業務内容</th>
+                <td>静的サイト・Webアプリケーションのフロントエンド実装、アニメーション実装、パフォーマンスチューニング、CI/CD構築。</td>
+              </tr>
+              <tr>
+                <th>必須スキル</th>
+                <td>HTML5/CSS3/JavaScript（ES6+）の実務コーディング経験、レスポンシブWebデザインの実装経験。</td>
+              </tr>
+              <tr>
+                <th>歓迎スキル</th>
+                <td>TypeScript, React/Vue等のフレームワーク経験、Canvas/WebGLアニメーション実装経験、GitHub Actionsによる自動化経験。</td>
+              </tr>
+              <tr>
+                <th>勤務地</th>
+                <td>フルリモート（国内居住） / 表参道オフィス</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ポジション 3 -->
+        <div class="job-card">
+          <div class="job-header">
+            <h3 class="job-title">Webディレクター / プロジェクトマネージャー</h3>
+            <span class="job-badge">正社員</span>
+          </div>
+          <table class="job-detail-table">
+            <tbody>
+              <tr>
+                <th>業務内容</th>
+                <td>クライアントヒアリング、要件定義、スケジュール・予算管理、クリエイティブ品質管理、チーム進行管理。</td>
+              </tr>
+              <tr>
+                <th>必須スキル</th>
+                <td>Web制作ディレクションまたはPMの実務経験（2年以上）、クライアント折衝・コミュニケーション力。</td>
+              </tr>
+              <tr>
+                <th>歓迎スキル</th>
+                <td>大規模サイトリニューアル経験、アクセス解析・マーケティング知見、UI設計の基礎知識。</td>
+              </tr>
+              <tr>
+                <th>勤務地</th>
+                <td>フルリモート（国内居住） / 表参道オフィス</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 選考プロセス -->
+      <section class="glass-panel" id="flow">
+        <h2 class="section-title">選考プロセス (Selection Process)</h2>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center;">
+          <div style="background: var(--input-bg); padding: 1.25rem; border-radius: 10px; border: 1px solid var(--card-border);">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--accent-primary);">STEP 01</div>
+            <h4 style="font-weight: 700; margin: 0.5rem 0;">書類選考</h4>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">ポートフォリオ・職歴確認</p>
+          </div>
+          <div style="background: var(--input-bg); padding: 1.25rem; border-radius: 10px; border: 1px solid var(--card-border);">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--accent-primary);">STEP 02</div>
+            <h4 style="font-weight: 700; margin: 0.5rem 0;">カジュアル面談</h4>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">オンライン（30分）</p>
+          </div>
+          <div style="background: var(--input-bg); padding: 1.25rem; border-radius: 10px; border: 1px solid var(--card-border);">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--accent-primary);">STEP 03</div>
+            <h4 style="font-weight: 700; margin: 0.5rem 0;">スキル・課題面談</h4>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">現場メンバーとの対話</p>
+          </div>
+          <div style="background: var(--input-bg); padding: 1.25rem; border-radius: 10px; border: 1px solid var(--card-border);">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--accent-primary);">STEP 04</div>
+            <h4 style="font-weight: 700; margin: 0.5rem 0;">内定・オファー</h4>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">条件合意・入社日調整</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- エントリーCTA -->
+      <div style="text-align: center; margin-top: 3rem;">
+        <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;">エントリー・カジュアル面談のご希望はこちら</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">「まずは話を聞いてみたい」というカジュアル面談も大歓迎です。</p>
+        <a href="contact.html?type=recruit" class="btn-cta" style="font-size: 1rem; padding: 0.75rem 2rem;">採用エントリーフォームへ</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <ul class="footer-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="recruit.html">Recruit</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <p>© <span id="current-year">2026</span> 株式会社pop (POP制作所). All rights reserved.</p>
+  </footer>
+
+  <script src="public/js/common.js"></script>
+</body>
+</html>
