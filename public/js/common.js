@@ -69,16 +69,51 @@
     }
   }
 
+  // 4. 時計表示の更新処理
+  function initClock() {
+    function updateClock() {
+      var now = new Date();
+      var hours = String(now.getHours()).padStart(2, '0');
+      var minutes = String(now.getMinutes()).padStart(2, '0');
+      var seconds = String(now.getSeconds()).padStart(2, '0');
+      var timeEl = document.getElementById('current-time');
+      if (timeEl) {
+        timeEl.textContent = hours + ':' + minutes + ':' + seconds;
+      }
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+  }
+
+  // 5. ページ最下部へ移動ボタンの制御
+  function initScrollToBottom() {
+    var scrollToBottomBtn = document.getElementById('scroll-to-bottom');
+    if (scrollToBottomBtn) {
+      scrollToBottomBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var isReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: isReduced ? 'auto' : 'smooth'
+        });
+      });
+    }
+  }
+
   // DOMContentLoaded で初期化
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       initTheme();
       initHamburger();
       initYear();
+      initClock();
+      initScrollToBottom();
     });
   } else {
     initTheme();
     initHamburger();
     initYear();
+    initClock();
+    initScrollToBottom();
   }
 })();

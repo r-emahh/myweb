@@ -175,6 +175,60 @@ body {
   gap: 0.75rem;
 }
 
+.time-display {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: 9999px;
+  background: var(--toggle-bg);
+  border: 1px solid var(--toggle-border);
+  color: var(--text-main);
+  letter-spacing: 0.05em;
+  user-select: none;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.scroll-down-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 9999px;
+  background: var(--toggle-bg);
+  border: 1px solid var(--toggle-border);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.scroll-down-btn:hover {
+  background: var(--toggle-hover);
+  transform: translateY(1px);
+}
+
+.scroll-down-btn:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+.scroll-down-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  fill: none;
+  transition: transform 0.2s ease;
+}
+
+.scroll-down-btn:hover svg {
+  transform: translateY(2px);
+}
+
 .theme-toggle-btn {
   display: inline-flex;
   align-items: center;
@@ -443,6 +497,9 @@ body {
   .site-header {
     padding: 1rem 1.25rem;
   }
+  .time-display {
+    display: none;
+  }
   .hamburger-btn {
     display: flex;
   }
@@ -498,6 +555,20 @@ body {
 @media (max-width: 480px) {
   .site-header {
     padding: 0.75rem 1rem;
+  }
+  .header-actions {
+    gap: 0.35rem;
+  }
+  .theme-toggle-btn {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.75rem;
+  }
+  .scroll-down-btn {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.75rem;
+  }
+  .scroll-down-btn .btn-text {
+    display: none;
   }
   .brand-logo {
     font-size: 1.05rem;
