@@ -100,6 +100,131 @@
     }
   }
 
+  // 6. 浮遊パーティクル／ダストエフェクト (雪が舞う背景アニメーション)
+  function initParticles() {
+    var canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    var width = 0;
+    var height = 0;
+    var particles = [];
+    var maxParticles = 45;
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      maxParticles = width < 640 ? 25 : 45;
+      while (particles.length > maxParticles) {
+        particles.pop();
+      }
+    }
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+
+    function createParticle(initial) {
+      return {
+        x: Math.random() * width,
+        y: initial ? Math.random() * height : height + 10,
+        radius: Math.random() * 1.5 + 0.7,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: -(Math.random() * 0.35 + 0.15),
+        wobble: Math.random() * Math.PI * 2,
+        wobbleSpeed: Math.random() * 0.015 + 0.008,
+        wobbleRadius: Math.random() * 0.3 + 0.1,
+        alpha: initial ? (Math.random() * 0.45 + 0.1) : 0,
+        targetAlpha: Math.random() * 0.45 + 0.25,
+        fadeIn: true,
+        fadeSpeed: Math.random() * 0.006 + 0.003
+      };
+    }
+
+    for (var i = 0; i < maxParticles; i++) {
+      particles.push(createParticle(true));
+    }
+
+    var animId = null;
+    var isRunning = false;
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+
+      var isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+
+      for (var j = 0; j < particles.length; j++) {
+        var p = particles[j];
+
+        p.wobble += p.wobbleSpeed;
+        p.x += p.vx + Math.sin(p.wobble) * p.wobbleRadius;
+        p.y += p.vy;
+
+        if (p.fadeIn) {
+          p.alpha += p.fadeSpeed;
+          if (p.alpha >= p.targetAlpha) {
+            p.fadeIn = false;
+          }
+        } else {
+          if (p.y < height * 0.25) {
+            p.alpha -= p.fadeSpeed * 1.5;
+          }
+        }
+
+        if (p.y < -10 || p.x < -20 || p.x > width + 20 || p.alpha <= 0) {
+          particles[j] = createParticle(false);
+          continue;
+        }
+
+        var color = isDark
+          ? 'rgba(216, 226, 255, ' + Math.max(0, p.alpha) + ')'
+          : 'rgba(99, 102, 241, ' + Math.max(0, p.alpha * 0.6) + ')';
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+
+      if (isRunning && !document.hidden && !prefersReducedMotion) {
+        animId = requestAnimationFrame(animate);
+      } else {
+        isRunning = false;
+      }
+    }
+
+    function start() {
+      if (!isRunning && !document.hidden && !prefersReducedMotion) {
+        isRunning = true;
+        animId = requestAnimationFrame(animate);
+      }
+    }
+
+    function stop() {
+      if (isRunning) {
+        isRunning = false;
+        if (animId) {
+          cancelAnimationFrame(animId);
+          animId = null;
+        }
+      }
+    }
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        stop();
+      } else {
+        start();
+      }
+    });
+
+    start();
+  }
+
   // DOMContentLoaded で初期化
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
@@ -108,6 +233,7 @@
       initYear();
       initClock();
       initScrollToBottom();
+      initParticles();
     });
   } else {
     initTheme();
@@ -115,5 +241,6 @@
     initYear();
     initClock();
     initScrollToBottom();
+    initParticles();
   }
 })();
