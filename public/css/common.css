@@ -121,6 +121,7 @@ body {
   text-decoration: none;
   cursor: pointer;
   outline: none;
+  line-height: 1.2;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
@@ -145,6 +146,7 @@ body {
   font-weight: 700;
   font-size: 1.15rem;
   letter-spacing: -0.02em;
+  line-height: 1.2;
   background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -180,10 +182,11 @@ body {
   position: relative;
   font-size: 0.92rem;
   font-weight: 600;
+  line-height: 1.2;
   color: var(--text-muted);
   text-decoration: none;
   cursor: pointer;
-  padding: 0.35rem 0.2rem;
+  padding: 0.4rem 0.25rem;
   transition: color 0.2s ease;
   white-space: nowrap;
 }
@@ -206,16 +209,13 @@ body {
 }
 
 .nav-link:hover::after,
-.nav-link:focus-visible::after {
+.nav-link:focus-visible::after,
+.nav-link.active::after {
   width: 100%;
 }
 
 .nav-link.active {
   color: var(--text-main);
-}
-
-.nav-link.active::after {
-  width: 100%;
 }
 
 .nav-link:focus-visible {
@@ -224,13 +224,15 @@ body {
   border-radius: 2px;
 }
 
-.header-cta {
+.header-cta,
+.btn-cta.header-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.45rem 1.15rem;
-  font-size: 0.88rem;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.9rem;
   font-weight: 600;
+  line-height: 1.2;
   color: #ffffff !important;
   background: var(--accent-gradient);
   border-radius: 9999px;
@@ -241,17 +243,20 @@ body {
   white-space: nowrap;
 }
 
-.header-cta:hover {
+.header-cta:hover,
+.btn-cta.header-cta:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(99, 102, 241, 0.45);
   filter: brightness(1.08);
 }
 
-.header-cta:active {
+.header-cta:active,
+.btn-cta.header-cta:active {
   transform: translateY(0);
 }
 
-.header-cta:focus-visible {
+.header-cta:focus-visible,
+.btn-cta.header-cta:focus-visible {
   outline: 2px solid #6366f1;
   outline-offset: 2px;
 }
@@ -270,6 +275,7 @@ body {
   text-decoration: none;
   font-weight: 600;
   font-size: 0.9rem;
+  line-height: 1.2;
   padding: 0.55rem 1.25rem;
   border-radius: 9999px;
   box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
@@ -292,6 +298,7 @@ body {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   font-size: 0.85rem;
   font-weight: 600;
+  line-height: 1.2;
   padding: 0.45rem 0.85rem;
   border-radius: 9999px;
   background: var(--toggle-bg);
@@ -314,6 +321,7 @@ body {
   font-family: inherit;
   font-size: 0.85rem;
   font-weight: 600;
+  line-height: 1.2;
   cursor: pointer;
   transition: all 0.2s ease;
   user-select: none;
@@ -349,11 +357,15 @@ body {
   background: var(--toggle-bg);
   border: 1px solid var(--toggle-border);
   color: var(--text-main);
-  padding: 0.45rem 0.8rem;
+  padding: 0.45rem 0.85rem;
   border-radius: 9999px;
+  font-family: inherit;
   font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
   cursor: pointer;
   transition: background-color 0.2s ease, border-color 0.2s ease;
+  user-select: none;
 }
 
 .theme-toggle-btn:hover {
