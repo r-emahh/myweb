@@ -1,0 +1,57 @@
+<header class="site-header" id="site-header">
+  <div class="header-left">
+    <a href="index.html" class="brand-logo" id="brand-logo" aria-label="POP制作所 ホーム">
+      <svg class="logo-img" viewBox="0 0 32 32" width="26" height="26" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="pop-logo-gradient" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#6366f1" />
+            <stop offset="50%" stop-color="#a855f7" />
+            <stop offset="100%" stop-color="#ec4899" />
+          </linearGradient>
+        </defs>
+        <rect x="2" y="2" width="28" height="28" rx="8" fill="url(#pop-logo-gradient)" />
+        <path d="M10 8h7a5 5 0 0 1 5 5c0 2.76-2.24 5-5 5h-4v6h-3V8zm3 3v4h4a2 2 0 1 0 0-4h-4z" fill="#ffffff" />
+        <circle cx="23" cy="23" r="2.2" fill="#ffffff" opacity="0.9" />
+      </svg>
+      <span class="brand-title">POP制作所</span>
+    </a>
+  </div>
+
+  <div class="header-right">
+    <nav class="site-nav" id="site-nav" aria-label="メインナビゲーション">
+      <ul class="nav-list">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+        <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="news.html" class="nav-link">News</a></li>
+        <li class="nav-item"><a href="recruit.html" class="nav-link">Recruit</a></li>
+      </ul>
+      <div class="mobile-cta">
+        <a href="contact.html" class="btn-cta header-cta mobile-cta-btn">お問い合わせ</a>
+      </div>
+    </nav>
+
+    <a href="contact.html" class="btn-cta header-cta" id="header-cta-btn">お問い合わせ</a>
+
+    <div class="header-actions">
+      <div id="current-time" class="time-display" aria-label="現在時刻">--:--:--</div>
+      <button id="scroll-to-bottom" class="scroll-down-btn" aria-label="ページ最下部へ移動" type="button">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 5v14M5 12l7 7 7-7" />
+        </svg>
+        <span class="btn-text">下部へ</span>
+      </button>
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="テーマを切り替える" type="button">
+        <span id="theme-icon" class="theme-icon">🌙</span>
+        <span id="theme-text" class="theme-text">Dark</span>
+      </button>
+    </div>
+
+    <button id="hamburger-btn" class="hamburger-btn" aria-label="メニューを開く" aria-expanded="false"
+      aria-controls="site-nav" type="button">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+</header>

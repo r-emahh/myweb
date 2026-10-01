@@ -39,6 +39,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="public/css/common.css">
+  <link rel="stylesheet" href="css/header.css">
   <style>
     :root,
     [data-theme="dark"] {
@@ -153,326 +154,7 @@
       }
     }
 
-    /* Header */
-    .site-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 100;
-      background: var(--header-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--card-border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.85rem 1.5rem;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
 
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      flex-shrink: 0;
-    }
-
-    /* Brand Logo (Issue #31) */
-    .brand-logo {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      text-decoration: none;
-      cursor: pointer;
-      outline: none;
-      line-height: 1.2;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-
-    .brand-logo:hover {
-      opacity: 0.85;
-      transform: translateY(-1px);
-    }
-
-    .brand-logo:focus-visible {
-      outline: 2px solid #6366f1;
-      outline-offset: 4px;
-      border-radius: 4px;
-    }
-
-    .logo-img {
-      width: 26px;
-      height: 26px;
-      object-fit: contain;
-    }
-
-    .brand-title {
-      font-weight: 700;
-      font-size: 1.15rem;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      user-select: none;
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-    }
-
-    /* Navigation Menu (Issue #31) */
-    .site-nav {
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-list {
-      display: flex;
-      align-items: center;
-      list-style: none;
-      gap: 1.25rem;
-      margin: 0;
-      padding: 0;
-    }
-
-    .nav-item {
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-link {
-      position: relative;
-      font-size: 0.92rem;
-      font-weight: 600;
-      line-height: 1.2;
-      color: var(--text-muted);
-      text-decoration: none;
-      cursor: pointer;
-      padding: 0.4rem 0.25rem;
-      transition: color 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .nav-link:hover,
-    .nav-link:focus-visible {
-      color: var(--text-main);
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0%;
-      height: 2px;
-      background: var(--accent-gradient);
-      border-radius: 2px;
-      transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .nav-link:hover::after,
-    .nav-link:focus-visible::after,
-    .nav-link.active::after {
-      width: 100%;
-    }
-
-    .nav-link.active {
-      color: var(--text-main);
-    }
-
-    .nav-link:focus-visible {
-      outline: 2px solid #6366f1;
-      outline-offset: 4px;
-      border-radius: 2px;
-    }
-
-    /* Header CTA Button (Issue #31) */
-    .header-cta,
-    .btn-cta.header-cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.5rem 1.25rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      line-height: 1.2;
-      color: #ffffff !important;
-      background: var(--accent-gradient);
-      border-radius: 9999px;
-      text-decoration: none;
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .header-cta:hover,
-    .btn-cta.header-cta:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(99, 102, 241, 0.45);
-      filter: brightness(1.08);
-    }
-
-    .header-cta:active,
-    .btn-cta.header-cta:active {
-      transform: translateY(0);
-    }
-
-    .header-cta:focus-visible,
-    .btn-cta.header-cta:focus-visible {
-      outline: 2px solid #6366f1;
-      outline-offset: 2px;
-    }
-
-    .mobile-cta {
-      display: none;
-    }
-
-    /* Hamburger Button (Issue #31) */
-    .hamburger-btn {
-      display: none;
-      flex-direction: column;
-      justify-content: space-around;
-      width: 36px;
-      height: 36px;
-      background: var(--toggle-bg);
-      border: 1px solid var(--toggle-border);
-      border-radius: 8px;
-      padding: 8px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-
-    .hamburger-btn:hover {
-      background: var(--toggle-hover);
-    }
-
-    .hamburger-btn:focus-visible {
-      outline: 2px solid #6366f1;
-      outline-offset: 2px;
-    }
-
-    .hamburger-line {
-      width: 100%;
-      height: 2px;
-      background-color: var(--text-main);
-      border-radius: 2px;
-      transition: transform 0.25s ease, opacity 0.25s ease;
-    }
-
-    .hamburger-btn[aria-expanded="true"] .hamburger-line:nth-child(1) {
-      transform: translateY(6px) rotate(45deg);
-    }
-
-    .hamburger-btn[aria-expanded="true"] .hamburger-line:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger-btn[aria-expanded="true"] .hamburger-line:nth-child(3) {
-      transform: translateY(-6px) rotate(-45deg);
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    /* Clock Display (Issue #22) */
-    .time-display {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size: 0.85rem;
-      font-weight: 600;
-      line-height: 1.2;
-      padding: 0.45rem 0.85rem;
-      border-radius: 9999px;
-      background: var(--toggle-bg);
-      border: 1px solid var(--toggle-border);
-      color: var(--text-main);
-      letter-spacing: 0.05em;
-      user-select: none;
-      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-    }
-
-    /* Theme Toggle Button */
-    .theme-toggle-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.45rem 0.85rem;
-      border-radius: 9999px;
-      background: var(--toggle-bg);
-      border: 1px solid var(--toggle-border);
-      color: var(--text-main);
-      font-family: inherit;
-      font-size: 0.85rem;
-      font-weight: 600;
-      line-height: 1.2;
-      cursor: pointer;
-      transition: background-color 0.2s ease, border-color 0.2s ease;
-      user-select: none;
-    }
-
-    .theme-toggle-btn:hover {
-      background: var(--toggle-hover);
-      transform: translateY(-1px);
-    }
-
-    .theme-toggle-btn:focus-visible {
-      outline: 2px solid #6366f1;
-      outline-offset: 2px;
-    }
-
-    .theme-icon {
-      font-size: 1rem;
-      line-height: 1;
-    }
-
-    /* Scroll To Bottom Button */
-    .scroll-down-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.45rem 0.85rem;
-      border-radius: 9999px;
-      background: var(--toggle-bg);
-      border: 1px solid var(--toggle-border);
-      color: var(--text-main);
-      font-family: inherit;
-      font-size: 0.85rem;
-      font-weight: 600;
-      line-height: 1.2;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      user-select: none;
-    }
-
-    .scroll-down-btn:hover {
-      background: var(--toggle-hover);
-      transform: translateY(1px);
-    }
-
-    .scroll-down-btn:focus-visible {
-      outline: 2px solid #6366f1;
-      outline-offset: 2px;
-    }
-
-    .scroll-down-btn svg {
-      width: 14px;
-      height: 14px;
-      stroke: currentColor;
-      stroke-width: 2.2;
-      fill: none;
-      transition: transform 0.2s ease;
-    }
-
-    .scroll-down-btn:hover svg {
-      transform: translateY(2px);
-    }
 
     .card {
       position: relative;
@@ -970,31 +652,6 @@
         font-size: 2rem;
       }
 
-      .site-header {
-        padding: 0.65rem 0.85rem;
-      }
-
-      .header-right {
-        gap: 0.5rem;
-      }
-
-      .header-actions {
-        gap: 0.35rem;
-      }
-
-      .theme-toggle-btn {
-        padding: 0.35rem 0.65rem;
-        font-size: 0.75rem;
-      }
-
-      .scroll-down-btn {
-        padding: 0.35rem 0.6rem;
-        font-size: 0.75rem;
-      }
-
-      .scroll-down-btn .btn-text {
-        display: none;
-      }
 
       .back-to-top-btn {
         bottom: 1.25rem;
@@ -1208,63 +865,7 @@
 
 <body>
   <canvas id="particle-canvas" class="particle-canvas" aria-hidden="true"></canvas>
-  <header class="site-header" id="site-header">
-    <div class="header-left">
-      <a href="index.html" class="brand-logo" id="brand-logo" aria-label="POP制作所 ホーム">
-        <svg class="logo-img" viewBox="0 0 32 32" width="26" height="26" fill="none" aria-hidden="true">
-          <defs>
-            <linearGradient id="pop-logo-gradient" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#6366f1" />
-              <stop offset="50%" stop-color="#a855f7" />
-              <stop offset="100%" stop-color="#ec4899" />
-            </linearGradient>
-          </defs>
-          <rect x="2" y="2" width="28" height="28" rx="8" fill="url(#pop-logo-gradient)" />
-          <path d="M10 8h7a5 5 0 0 1 5 5c0 2.76-2.24 5-5 5h-4v6h-3V8zm3 3v4h4a2 2 0 1 0 0-4h-4z" fill="#ffffff" />
-          <circle cx="23" cy="23" r="2.2" fill="#ffffff" opacity="0.9" />
-        </svg>
-        <span class="brand-title">POP制作所</span>
-      </a>
-    </div>
-
-    <div class="header-right">
-      <nav class="site-nav" id="site-nav" aria-label="メインナビゲーション">
-        <ul class="nav-list">
-          <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
-          <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
-          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-          <li class="nav-item"><a href="news.html" class="nav-link">News</a></li>
-          <li class="nav-item"><a href="recruit.html" class="nav-link">Recruit</a></li>
-        </ul>
-        <div class="mobile-cta">
-          <a href="contact.html" class="btn-cta header-cta mobile-cta-btn">お問い合わせ</a>
-        </div>
-      </nav>
-
-      <a href="contact.html" class="btn-cta header-cta" id="header-cta-btn">お問い合わせ</a>
-
-      <div class="header-actions">
-        <div id="current-time" class="time-display" aria-label="現在時刻">--:--:--</div>
-        <button id="scroll-to-bottom" class="scroll-down-btn" aria-label="ページ最下部へ移動" type="button">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 5v14M5 12l7 7 7-7" />
-          </svg>
-          <span class="btn-text">下部へ</span>
-        </button>
-        <button id="theme-toggle" class="theme-toggle-btn" aria-label="テーマを切り替える" type="button">
-          <span id="theme-icon" class="theme-icon">　</span>
-          <span id="theme-text" class="theme-text">Dark</span>
-        </button>
-      </div>
-
-      <button id="hamburger-btn" class="hamburger-btn" aria-label="メニューを開く" aria-expanded="false"
-        aria-controls="site-nav" type="button">
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-      </button>
-    </div>
-  </header>
+  <div id="header-placeholder"></div>
 
   <main class="card">
     <canvas id="polyhedron-canvas" class="polyhedron-canvas" width="560" height="560" aria-hidden="true"></canvas>
@@ -1469,67 +1070,13 @@
 
   <script>
     (function () {
-      /* ヘッダー・ナビゲーション・ハンバーガーメニュー制御 (Issue #31) */
+      /* ページ内アンカーリンク制御 (#btn-services, #btn-process) */
       (function () {
-        var hamburgerBtn = document.getElementById('hamburger-btn');
-        var siteNav = document.getElementById('site-nav');
-        var brandLogo = document.getElementById('brand-logo');
-        var headerCtaBtn = document.getElementById('header-cta-btn');
-        var navLinks = document.querySelectorAll('.nav-link, .mobile-cta-btn, #btn-services, #btn-process');
-
-        function closeMenu() {
-          if (siteNav && siteNav.classList.contains('is-open')) {
-            siteNav.classList.remove('is-open');
-            if (hamburgerBtn) {
-              hamburgerBtn.setAttribute('aria-expanded', 'false');
-              hamburgerBtn.setAttribute('aria-label', 'メニューを開く');
-            }
-          }
-        }
-
-        if (hamburgerBtn && siteNav) {
-          hamburgerBtn.addEventListener('click', function () {
-            var isOpen = siteNav.classList.toggle('is-open');
-            hamburgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-            hamburgerBtn.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
-          });
-
-          // メニュー外クリックで閉じる
-          document.addEventListener('click', function (e) {
-            if (siteNav.classList.contains('is-open') &&
-              !siteNav.contains(e.target) &&
-              !hamburgerBtn.contains(e.target)) {
-              closeMenu();
-            }
-          });
-
-          // Escapeキーで閉じる
-          document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && siteNav.classList.contains('is-open')) {
-              closeMenu();
-              hamburgerBtn.focus();
-            }
-          });
-        }
-
-        // ロゴクリック時は最上部へスムーズスクロール
-        if (brandLogo) {
-          brandLogo.addEventListener('click', function (e) {
-            e.preventDefault();
-            closeMenu();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          });
-        }
-
-        // ナビゲーションリンクおよびCTAボタンクリック時の挙動
-        function handleAnchorClick(link) {
+        var pageLinks = document.querySelectorAll('#btn-services, #btn-process');
+        pageLinks.forEach(function (link) {
           link.addEventListener('click', function (e) {
             var href = link.getAttribute('href');
-            closeMenu();
-            if (href === '#' || href === '') {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else if (href && href.startsWith('#')) {
+            if (href && href.startsWith('#')) {
               var targetEl = document.querySelector(href);
               if (targetEl) {
                 e.preventDefault();
@@ -1537,105 +1084,13 @@
               }
             }
           });
-        }
-
-        navLinks.forEach(handleAnchorClick);
-        if (headerCtaBtn) {
-          handleAnchorClick(headerCtaBtn);
-        }
+        });
       })();
-
-      /* 時計表示の更新処理 (Issue #22) */
-      function updateClock() {
-        var now = new Date();
-        var hours = String(now.getHours()).padStart(2, '0');
-        var minutes = String(now.getMinutes()).padStart(2, '0');
-        var seconds = String(now.getSeconds()).padStart(2, '0');
-        var timeEl = document.getElementById('current-time');
-        if (timeEl) {
-          timeEl.textContent = hours + ':' + minutes + ':' + seconds;
-        }
-      }
-      updateClock();
-      var clockTimer = setInterval(updateClock, 1000);
 
       /* フッターの年表示を動的更新 (Issue #8) */
       var currentYearEl = document.getElementById('current-year');
       if (currentYearEl) {
         currentYearEl.textContent = String(new Date().getFullYear());
-      }
-
-      var themeToggle = document.getElementById('theme-toggle');
-      var themeIcon = document.getElementById('theme-icon');
-      var themeText = document.getElementById('theme-text');
-
-      function updateButtonUI(theme) {
-        if (theme === 'dark') {
-          themeIcon.textContent = ' ';
-          themeText.textContent = 'Dark';
-          themeToggle.setAttribute('aria-label', 'ライトモードに切り替える');
-        } else {
-          themeIcon.textContent = '　';
-          themeText.textContent = 'Light';
-          themeToggle.setAttribute('aria-label', 'ダークモードに切り替える');
-        }
-      }
-
-      var currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-      updateButtonUI(currentTheme);
-
-      function switchTheme(e) {
-        var activeTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-
-        /* テーマ切り替えトランジション演出 (Issue #24) */
-        function applyTheme() {
-          document.documentElement.setAttribute('data-theme', activeTheme);
-          try {
-            localStorage.setItem('theme', activeTheme);
-          } catch (err) { }
-          updateButtonUI(activeTheme);
-        }
-
-        /* トグルボタン位置またはクリック座標を円の中心にする */
-        var rect = themeToggle.getBoundingClientRect();
-        var x = (e && typeof e.clientX === 'number' && e.clientX > 0) ? e.clientX : (rect.left + rect.width / 2);
-        var y = (e && typeof e.clientY === 'number' && e.clientY > 0) ? e.clientY : (rect.top + rect.height / 2);
-
-        /* 画面四隅のうち最も遠い距離を最大半径とする */
-        var endRadius = Math.hypot(
-          Math.max(x, window.innerWidth - x),
-          Math.max(y, window.innerHeight - y)
-        );
-
-        /* View Transitions API のサポートおよびアクセシビリティ（動きの抑制）判定 */
-        if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          applyTheme();
-          return;
-        }
-
-        var transition = document.startViewTransition(function () {
-          applyTheme();
-        });
-
-        transition.ready.then(function () {
-          document.documentElement.animate(
-            {
-              clipPath: [
-                'circle(0px at ' + x + 'px ' + y + 'px)',
-                'circle(' + endRadius + 'px at ' + x + 'px ' + y + 'px)'
-              ]
-            },
-            {
-              duration: 400,
-              easing: 'ease-in-out',
-              pseudoElement: '::view-transition-new(root)'
-            }
-          );
-        });
-      }
-
-      if (themeToggle) {
-        themeToggle.addEventListener('click', switchTheme);
       }
 
       /* ページ上部へ戻るボタンの制御 (Issue #20) */
@@ -1654,19 +1109,6 @@
         backToTopBtn.addEventListener('click', function () {
           var isReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
           window.scrollTo({ top: 0, behavior: isReduced ? 'auto' : 'smooth' });
-        });
-      }
-
-      /* ページ最下部へ移動ボタンの制御 (Issue #6) */
-      var scrollToBottomBtn = document.getElementById('scroll-to-bottom');
-      if (scrollToBottomBtn) {
-        scrollToBottomBtn.addEventListener('click', function (e) {
-          e.preventDefault();
-          var isReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          window.scrollTo({
-            top: document.documentElement.scrollHeight,
-            behavior: isReduced ? 'auto' : 'smooth'
-          });
         });
       }
 
@@ -2112,6 +1554,7 @@
       })();
     })();
   </script>
+  <script src="js/header.js"></script>
   <script src="public/js/analytics.js"></script>
 </body>
 
