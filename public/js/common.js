@@ -71,14 +71,17 @@
 
   // 4. 時計表示の更新処理
   function initClock() {
+    var timeEl = document.getElementById('current-time');
+    if (!timeEl) return;
+
     function updateClock() {
       var now = new Date();
       var hours = String(now.getHours()).padStart(2, '0');
       var minutes = String(now.getMinutes()).padStart(2, '0');
       var seconds = String(now.getSeconds()).padStart(2, '0');
-      var timeEl = document.getElementById('current-time');
-      if (timeEl) {
-        timeEl.textContent = hours + ':' + minutes + ':' + seconds;
+      var el = document.getElementById('current-time');
+      if (el) {
+        el.textContent = hours + ':' + minutes + ':' + seconds;
       }
     }
     updateClock();
